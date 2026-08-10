@@ -19,16 +19,16 @@
   height: 48px;
   border: none;
   border-radius: 50%;
-  background: #2563eb;
+  background: #1d4f91;
   color: #fff;
   font-size: 28px;
   line-height: 1;
   cursor: pointer;
-  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.35);
+  box-shadow: 0 4px 16px rgba(29, 79, 145, 0.35);
 }
 
 .tr-fab:hover {
-  background: #1d4ed8;
+  background: #163d72;
 }
 
 .tr-panel {
@@ -108,7 +108,7 @@
 .tr-message {
   margin: 0;
   font-size: 12px;
-  color: #15803d;
+  color: #1d4f91;
 }
 
 .tr-actions {
@@ -133,13 +133,13 @@
 }
 
 .tr-btn.primary {
-  background: #2563eb;
-  border-color: #2563eb;
+  background: #1d4f91;
+  border-color: #1d4f91;
   color: #fff;
 }
 
 .tr-btn.primary:hover:not(:disabled) {
-  background: #1d4ed8;
+  background: #163d72;
 }
 
 .tr-btn:disabled {

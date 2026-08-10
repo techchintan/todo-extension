@@ -1,3 +1,93 @@
+:root {
+  --ink: #1c2a44;
+  --muted: #5b6b86;
+  --line: #d5deeb;
+  --accent: #1d4f91;
+  --paper: #f4f6fb;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
-  background-color: #1c1c1c;
+  margin: 0;
+  font-family: Candara, "Segoe UI", Calibri, sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 10% 0%, #dbe7f8 0%, transparent 40%),
+    radial-gradient(circle at 90% 0%, #fff1d6 0%, transparent 32%),
+    linear-gradient(180deg, #eef2f8 0%, var(--paper) 100%);
+  min-height: 100vh;
+}
+
+.options {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 32px 20px 48px;
+}
+
+header {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+header h1 {
+  margin: 0;
+  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  font-size: 28px;
+}
+
+header p {
+  margin: 4px 0 0;
+  color: var(--muted);
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 18px;
+  margin-bottom: 14px;
+}
+
+.card h2 {
+  margin: 0 0 10px;
+  font-size: 16px;
+}
+
+.toggle {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.hint,
+.muted {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.status {
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 13px;
+}
+
+kbd {
+  display: inline-block;
+  padding: 2px 6px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
+  font-size: 12px;
+}
+
+code {
+  font-size: 12px;
 }

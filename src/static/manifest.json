@@ -1,7 +1,7 @@
 {
   "name": "Todo Reminder",
-  "description": "Quick-add todos, save pages and selections, and get Chrome notifications when due",
-  "version": "1.1.0",
+  "description": "Quick-add todos, save pages, reminders, sync, and keyboard shortcuts",
+  "version": "1.2.0",
   "manifest_version": 3,
   "icons": {
     "16": "icon.png",
@@ -12,6 +12,10 @@
     "default_popup": "popup.html",
     "default_title": "Todo Reminder",
     "default_icon": "icon.png"
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
   },
   "permissions": [
     "storage",
@@ -25,6 +29,15 @@
   ],
   "background": {
     "service_worker": "background.js"
+  },
+  "commands": {
+    "quick-add-todo": {
+      "suggested_key": {
+        "default": "Alt+Shift+T",
+        "mac": "Alt+Shift+T"
+      },
+      "description": "Open Todo Reminder quick add"
+    }
   },
   "content_scripts": [
     {

@@ -4,55 +4,38 @@ Chrome extension for managing a todo list with system notifications when a due d
 
 ## Features
 
-- Quick-add todos from the popup
-- Add the current website as a todo (popup button or right-click menu)
-- Add selected text as a hyperlinked todo (right-click selection or page quick-add)
+- Quick-add todos from the popup (`Alt+Shift+T`)
+- Add the current website / selected text as a todo
 - Floating quick-add on web pages
-- Day planning views: All, Today, Upcoming, Inbox, Done
-- Optional due dates — Inbox items have no reminder until you schedule them
-- Chrome notifications when a scheduled todo is due
-- Mark todos complete without leaving the browser
+- Views: All, Today (includes overdue), Upcoming, Inbox, Done
+- Priorities (P1–P4), tags, search, and recurring daily/weekly todos
+-   Complete action on due notifications
+- Optional Chrome sync + Export/Import backup
+- Extension badge for overdue/today count
+- Chrome notifications when a todo **starts** (“Todo starting”) or is **due** (“Todo due”)
+- Completing a recurring todo advances start and due to the next occurrence
 
 ## Getting Started
 
 1. `npm i` to install dependencies
 2. `npm start` for a watch build into `dist`, or `npm run build` for production
-3. Open Chrome and go to `chrome://extensions/`
-4. Enable **Developer mode**
-5. Click **Load unpacked** and select the `dist` folder
+3. Open Chrome → `chrome://extensions/` → Developer mode → **Load unpacked** → `dist`
+4. After updates, click **Reload** on the extension card
+5. Optional: enable sync in **Settings**, or change the shortcut at `chrome://extensions/shortcuts`
 
 ## Web clipping
 
-- **Popup:** open the extension → **Add this page**
+- **Popup:** **Save current page**
 - **Right-click page:** **Add page as todo**
 - **Right-click selection:** **Add selection as todo**
-- **On-page FAB:** click **+** → Save page or Save selection
-
-Saved pages/selections land in **Inbox** (no due date). Edit them later to set a reminder.
+- **On-page FAB:** **+** → Save page or Save selection
 
 ## Notifications when Chrome windows are closed
 
-Chrome extensions cannot run after Chrome is **fully quit**.
-
-They **can** still fire alarms and notifications if Chrome keeps running in the background with no windows open.
-
-On Windows:
-
-1. Open `chrome://settings/system`
-2. Turn on **Continue running background apps when Google Chrome is closed**
-
-Then close all Chrome windows and keep that setting on. Due todos should still notify.
-
-If you end Chrome completely (Quit / End task), notifications will not fire until Chrome starts again.
-
-## How to test a reminder
-
-1. Add a todo with a due time about 1 minute from now
-2. Optionally close all Chrome windows (with background apps enabled)
-3. When the time arrives, Chrome should show a “Todo due” notification
+On Windows: `chrome://settings/system` → turn on **Continue running background apps when Google Chrome is closed**.
 
 ## Notes
 
-- Todos are stored in `chrome.storage.local`
+- Todos are stored in `chrome.storage.local` (and optionally `chrome.storage.sync`)
 - Reminders use `chrome.alarms` and `chrome.notifications`
-- Editing a todo’s due time reschedules its alarm
+- Completing a recurring todo advances it to the next occurrence

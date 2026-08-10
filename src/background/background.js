@@ -1,8 +1,15 @@
 import {
   addTodo,
-  alarmNameForTodo,
+  dueAlarmNameForTodo,
+  dueNotificationIdForTodo,
+  getTodoStats,
   getTodos,
+  nextOccurrenceAt,
+  parseAlarmName,
+  parseNotificationId,
   saveTodos,
+  startAlarmNameForTodo,
+  startNotificationIdForTodo,
   todoIdFromAlarmName,
 } from "../shared/todos";
 
@@ -24,34 +31,92 @@ async function syncAlarms() {
 
   await clearTodoAlarms();
 
-  await Promise.all(
-    todos
-      .filter(
-        (todo) =>
-          !todo.completed &&
-          !todo.notified &&
-          todo.dueAt != null &&
-          Number(todo.dueAt) > now
-      )
-      .map((todo) =>
-        chrome.alarms.create(alarmNameForTodo(todo.id), {
+  const creates = [];
+
+  todos.forEach((todo) => {
+    if (todo.completed) return;
+
+    if (
+      !todo.startNotified &&
+      todo.startAt != null &&
+      Number(todo.startAt) > now
+    ) {
+      creates.push(
+        chrome.alarms.create(startAlarmNameForTodo(todo.id), {
+          when: Number(todo.startAt),
+        })
+      );
+    }
+
+    if (
+      !todo.notified &&
+      todo.dueAt != null &&
+      Number(todo.dueAt) > now
+    ) {
+      creates.push(
+        chrome.alarms.create(dueAlarmNameForTodo(todo.id), {
           when: Number(todo.dueAt),
         })
-      )
-  );
+      );
+    }
+  });
+
+  await Promise.all(creates);
+}
+
+async function updateBadge() {
+  const todos = await getTodos();
+  const stats = getTodoStats(todos);
+  const count = stats.overdue > 0 ? stats.overdue : stats.today;
+  await chrome.action.setBadgeText({
+    text: count > 0 ? String(Math.min(count, 99)) : "",
+  });
+  await chrome.action.setBadgeBackgroundColor({
+    color: stats.overdue > 0 ? "#c0362c" : "#1d4f91",
+  });
+}
+
+async function refreshReminders() {
+  await syncAlarms();
+  await updateBadge();
 }
 
 async function handleAlarm(alarm) {
-  const todoId = todoIdFromAlarmName(alarm.name);
-  if (!todoId) return;
+  const parsed = parseAlarmName(alarm.name);
+  if (!parsed) return;
 
   const todos = await getTodos();
-  const todo = todos.find((item) => item.id === todoId);
-  if (!todo || todo.completed || todo.notified || todo.dueAt == null) {
+  const todo = todos.find((item) => item.id === parsed.id);
+  if (!todo || todo.completed) return;
+
+  if (parsed.type === "start") {
+    if (todo.startNotified || todo.startAt == null) return;
+
+    await chrome.notifications.create(startNotificationIdForTodo(todo.id), {
+      type: "basic",
+      iconUrl: "icon.png",
+      title: "Todo starting",
+      message: todo.title,
+      contextMessage: todo.description || todo.url || undefined,
+      priority: 2,
+      requireInteraction: true,
+      silent: false,
+      buttons: [{ title: "Complete" }],
+    });
+
+    const next = todos.map((item) =>
+      item.id === parsed.id
+        ? { ...item, startNotified: true, updatedAt: Date.now() }
+        : item
+    );
+    await saveTodos(next);
+    await updateBadge();
     return;
   }
 
-  await chrome.notifications.create(`todo-notification-${todo.id}`, {
+  if (todo.notified || todo.dueAt == null) return;
+
+  await chrome.notifications.create(dueNotificationIdForTodo(todo.id), {
     type: "basic",
     iconUrl: "icon.png",
     title: "Todo due",
@@ -59,12 +124,17 @@ async function handleAlarm(alarm) {
     contextMessage: todo.description || todo.url || undefined,
     priority: 2,
     requireInteraction: true,
+    silent: false,
+    buttons: [{ title: "Complete" }],
   });
 
   const next = todos.map((item) =>
-    item.id === todoId ? { ...item, notified: true } : item
+    item.id === parsed.id
+      ? { ...item, notified: true, updatedAt: Date.now() }
+      : item
   );
   await saveTodos(next);
+  await updateBadge();
 }
 
 function setupContextMenus() {
@@ -102,13 +172,43 @@ async function createFromPage(tab, selectionText) {
   });
 }
 
+async function completeTodoById(todoId) {
+  const todos = await getTodos();
+  const next = todos.map((todo) => {
+    if (todo.id !== todoId) return todo;
+    if (todo.recurrence && todo.recurrence !== "none") {
+      return {
+        ...todo,
+        completed: false,
+        notified: false,
+        startNotified: false,
+        dueAt: nextOccurrenceAt(todo.dueAt || Date.now(), todo.recurrence),
+        startAt:
+          todo.startAt != null
+            ? nextOccurrenceAt(todo.startAt, todo.recurrence)
+            : null,
+        updatedAt: Date.now(),
+      };
+    }
+    return {
+      ...todo,
+      completed: true,
+      notified: true,
+      startNotified: true,
+      updatedAt: Date.now(),
+    };
+  });
+  await saveTodos(next);
+  await refreshReminders();
+}
+
 chrome.runtime.onInstalled.addListener(() => {
   setupContextMenus();
-  syncAlarms();
+  refreshReminders();
 });
 
 chrome.runtime.onStartup.addListener(() => {
-  syncAlarms();
+  refreshReminders();
 });
 
 chrome.contextMenus.onClicked.addListener(async (info, tab) => {
@@ -118,14 +218,24 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
     } else if (info.menuItemId === MENU_ADD_SELECTION) {
       await createFromPage(tab, info.selectionText);
     }
+    await updateBadge();
   } catch (error) {
     console.error("Failed to create todo from context menu", error);
   }
 });
 
+chrome.commands.onCommand.addListener(async (command) => {
+  if (command !== "quick-add-todo") return;
+  try {
+    await chrome.action.openPopup();
+  } catch {
+    await chrome.tabs.create({ url: chrome.runtime.getURL("popup.html") });
+  }
+});
+
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message?.type === "SYNC_ALARMS") {
-    syncAlarms()
+  if (message?.type === "SYNC_ALARMS" || message?.type === "SYNC_BADGE") {
+    refreshReminders()
       .then(() => sendResponse({ ok: true }))
       .catch((error) => sendResponse({ ok: false, error: String(error) }));
     return true;
@@ -133,7 +243,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
   if (message?.type === "ADD_TODO") {
     addTodo(message.payload || {})
-      .then((todo) => sendResponse({ ok: true, todo }))
+      .then(async (todo) => {
+        await updateBadge();
+        sendResponse({ ok: true, todo });
+      })
       .catch((error) => sendResponse({ ok: false, error: String(error) }));
     return true;
   }
@@ -142,7 +255,17 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     const tab = sender.tab;
     const selectionText = message.selectionText || "";
     createFromPage(tab, selectionText)
-      .then((todo) => sendResponse({ ok: true, todo }))
+      .then(async (todo) => {
+        await updateBadge();
+        sendResponse({ ok: true, todo });
+      })
+      .catch((error) => sendResponse({ ok: false, error: String(error) }));
+    return true;
+  }
+
+  if (message?.type === "COMPLETE_TODO") {
+    completeTodoById(message.id)
+      .then(() => sendResponse({ ok: true }))
       .catch((error) => sendResponse({ ok: false, error: String(error) }));
     return true;
   }
@@ -151,8 +274,11 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 });
 
 chrome.storage.onChanged.addListener((changes, area) => {
-  if (area === "local" && changes.todos) {
-    syncAlarms();
+  if (
+    (area === "local" || area === "sync") &&
+    (changes.todos || changes.settings)
+  ) {
+    refreshReminders();
   }
 });
 
@@ -166,5 +292,16 @@ chrome.notifications.onClicked.addListener(async (notificationId) => {
   } catch {
     // openPopup is only available in limited contexts; ignore failures.
   }
+  chrome.notifications.clear(notificationId);
+});
+
+chrome.notifications.onButtonClicked.addListener(async (notificationId, buttonIndex) => {
+  const parsed = parseNotificationId(notificationId);
+  if (!parsed) return;
+
+  if (buttonIndex === 0) {
+    await completeTodoById(parsed.id);
+  }
+
   chrome.notifications.clear(notificationId);
 });
