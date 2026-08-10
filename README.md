@@ -1,35 +1,44 @@
-# React Chrome Extension Boilerplate
+# Todo Reminder Chrome Extension
 
-Boilerplate for building Chrome Extensions in React and TypeScript using a simple Webpack build process.
+Chrome extension for managing a todo list with system notifications when a due date and time arrives.
+
+## Features
+
+- Create, read, update, and delete todos
+- Mark todos complete / incomplete
+- Schedule a Chrome notification for each incomplete todo’s due time
 
 ## Getting Started
 
-1. `npm i` to install dependancies
-2. `npm start` to start running the fast development mode Webpack build process that bundle files into the `dist` folder
-3. `npm i --save-dev <package_name>` to install new packages
+1. `npm i` to install dependencies
+2. `npm start` for a watch build into `dist`, or `npm run build` for production
+3. Open Chrome and go to `chrome://extensions/`
+4. Enable **Developer mode**
+5. Click **Load unpacked** and select the `dist` folder
 
-## Loading The Chrome Extension
+## Notifications when Chrome windows are closed
 
-1. Open Chrome and navigate to `chrome://extensions/`
-2. Toggle on `Developer mode` in the top right corner
-3. Click `Load unpacked`
-4. Select the entire `dist` folder
+Chrome extensions cannot run after Chrome is **fully quit**.
 
-## Production Build
+They **can** still fire alarms and notifications if Chrome keeps running in the background with no windows open.
 
-1. `npm run build` to generate a minimized production build in the `dist` folder
-2. ZIP the entire `dist` folder (e.g. `dist.zip`)
-3. Publish the ZIP file on the Chrome Web Store Developer Dashboard!
+On Windows:
 
-## Initial Steps
+1. Open `chrome://settings/system`
+2. Turn on **Continue running background apps when Google Chrome is closed**
 
-1. `git init` to start a new git repo for tracking your changes, do an initial base commit with all the default files
-2. Update `package.json`, important fields include `author`, `version`, `name` and `description`
-3. Update `manifest.json`, important fields include `version`, `name` and `description`
-4. Update `webpack.commmon.js`, the title in the `getHtmlPlugins` function should be your extension name
+Then close all Chrome windows and keep that setting on. Due todos should still notify.
 
-## Default Boilerplate Notes
+If you end Chrome completely (Quit / End task), notifications will not fire until Chrome starts again.
 
-- Folders get flattened, static references to images from HTML do not need to be relative (i.e. `icon.png` instead of `../static/icon.png`)
-- Importing local ts/tsx/css files should be relative, since Webpack will build a dependancy graph using these paths
-- Update the manifest file as per usual for chrome related permissions, references to files in here should also be flattened and not be relative
+## How to test a reminder
+
+1. Add a todo with a due time about 1 minute from now
+2. Optionally close all Chrome windows (with background apps enabled)
+3. When the time arrives, Chrome should show a “Todo due” notification
+
+## Notes
+
+- Todos are stored in `chrome.storage.local`
+- Reminders use `chrome.alarms` and `chrome.notifications`
+- Editing a todo’s due time reschedules its alarm

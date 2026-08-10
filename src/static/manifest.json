@@ -1,6 +1,6 @@
 {
-  "name": "React Chrome Extension",
-  "description": "React Chrome Extension",
+  "name": "Todo Reminder",
+  "description": "Todo list with Chrome notifications when due times arrive",
   "version": "1.0.0",
   "manifest_version": 3,
   "icons": {
@@ -10,29 +10,15 @@
   },
   "action": {
     "default_popup": "popup.html",
-    "default_title": "React Chrome Extension",
+    "default_title": "Todo Reminder",
     "default_icon": "icon.png"
   },
   "permissions": [
-    "storage"
+    "storage",
+    "alarms",
+    "notifications"
   ],
-  "options_page": "options.html",
   "background": {
     "service_worker": "background.js"
-  },
-  "content_scripts": [
-    {
-      "matches": [
-        "<all_urls>"
-      ],
-      "exclude_matches": [
-        "*://*.google.com/*",
-        "*://google.com/*"
-      ],
-      "js": [
-        "contentScript.js"
-      ],
-      "run_at": "document_idle"
-    }
-  ]
+  }
 }

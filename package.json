@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "react chrome extension template",
   "scripts": {
-    "start": "webpack --watch --progress --config webpack.dev.js",
-    "build": "webpack --progress --config webpack.prod.js"
+    "start": "set NODE_OPTIONS=--openssl-legacy-provider&& webpack --watch --progress --config webpack.dev.js",
+    "build": "set NODE_OPTIONS=--openssl-legacy-provider&& webpack --progress --config webpack.prod.js"
   },
   "author": "",
   "devDependencies": {
