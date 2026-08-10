@@ -10,7 +10,7 @@ body {
 }
 
 .app {
-  width: 360px;
+  width: 380px;
   padding: 16px;
 }
 
@@ -21,9 +21,37 @@ body {
 }
 
 .header p {
-  margin: 4px 0 14px;
+  margin: 4px 0 12px;
   font-size: 12px;
   color: #64748b;
+}
+
+.view-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.view-tab {
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  color: #475569;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.view-tab:hover {
+  background: #f1f5f9;
+}
+
+.view-tab.active {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #fff;
 }
 
 .form {
@@ -66,6 +94,13 @@ body {
 .form textarea {
   resize: vertical;
   min-height: 56px;
+}
+
+.hint {
+  margin: -4px 0 0;
+  font-size: 11px;
+  color: #94a3b8;
+  font-weight: 400;
 }
 
 .form-actions {
@@ -118,9 +153,20 @@ body {
   color: #b91c1c;
 }
 
+.status {
+  margin: 0;
+  font-size: 12px;
+  color: #15803d;
+}
+
 .list-section h2 {
   margin: 0 0 10px;
   font-size: 14px;
+}
+
+.count {
+  color: #64748b;
+  font-weight: 500;
 }
 
 .muted,
@@ -188,6 +234,19 @@ body {
   font-size: 12px;
   color: #64748b;
   word-break: break-word;
+}
+
+.todo-link {
+  display: inline-block;
+  margin: 4px 0 0 22px;
+  font-size: 12px;
+  color: #2563eb;
+  text-decoration: none;
+  word-break: break-all;
+}
+
+.todo-link:hover {
+  text-decoration: underline;
 }
 
 .todo-actions {

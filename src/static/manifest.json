@@ -1,7 +1,7 @@
 {
   "name": "Todo Reminder",
-  "description": "Todo list with Chrome notifications when due times arrive",
-  "version": "1.0.0",
+  "description": "Quick-add todos, save pages and selections, and get Chrome notifications when due",
+  "version": "1.1.0",
   "manifest_version": 3,
   "icons": {
     "16": "icon.png",
@@ -16,9 +16,21 @@
   "permissions": [
     "storage",
     "alarms",
-    "notifications"
+    "notifications",
+    "contextMenus",
+    "tabs"
+  ],
+  "host_permissions": [
+    "<all_urls>"
   ],
   "background": {
     "service_worker": "background.js"
-  }
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["contentScript.js"],
+      "run_at": "document_idle"
+    }
+  ]
 }
