@@ -8,7 +8,6 @@ module.exports = {
     popup: path.resolve('src/popup/popup.jsx'),
     options: path.resolve('src/options/options.jsx'),
     background: path.resolve('src/background/background.js'),
-    contentScript: path.resolve('src/contentScript/contentScript.jsx'),
   },
   module: {
     rules: [
@@ -52,12 +51,11 @@ module.exports = {
     filename: '[name].js',
     path: path.resolve('dist'),
   },
+  // Keep each extension page self-contained. Split chunks cause blank
+  // options/popup pages when watch and production builds overwrite dist.
   optimization: {
-    splitChunks: {
-      chunks(chunk) {
-        return chunk.name !== 'contentScript' && chunk.name !== 'background'
-      }
-    },
+    runtimeChunk: false,
+    splitChunks: false,
   }
 }
 

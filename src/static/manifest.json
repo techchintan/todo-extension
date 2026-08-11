@@ -38,12 +38,5 @@
       },
       "description": "Open Todo Reminder quick add"
     }
-  },
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["contentScript.js"],
-      "run_at": "document_idle"
-    }
-  ]
+  }
 }
