@@ -212,24 +212,6 @@ export function sortTodos(todos) {
   });
 }
 
-export function getTodoStats(todos) {
-  const now = Date.now();
-  const start = startOfDay(now);
-  const end = endOfDay(now);
-  const open = todos.filter((todo) => !todo.completed);
-  return {
-    open: open.length,
-    today: open.filter(
-      (todo) => todo.dueAt != null && todo.dueAt >= start && todo.dueAt <= end
-    ).length,
-    overdue: open.filter((todo) => todo.dueAt != null && todo.dueAt < now)
-      .length,
-    inbox: open.filter(
-      (todo) => todo.dueAt == null && todo.startAt == null
-    ).length,
-  };
-}
-
 export function startOfDay(timestamp = Date.now()) {
   const date = new Date(timestamp);
   date.setHours(0, 0, 0, 0);
@@ -407,13 +389,5 @@ export async function requestAlarmSync() {
     await chrome.runtime.sendMessage({ type: "SYNC_ALARMS" });
   } catch {
     // Service worker may be waking; storage listener also syncs.
-  }
-}
-
-export async function requestBadgeSync() {
-  try {
-    await chrome.runtime.sendMessage({ type: "SYNC_BADGE" });
-  } catch {
-    // ignore
   }
 }

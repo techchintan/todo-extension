@@ -2,7 +2,6 @@ import {
   addTodo,
   dueAlarmNameForTodo,
   dueNotificationIdForTodo,
-  getTodoStats,
   getTodos,
   nextOccurrenceAt,
   parseAlarmName,
@@ -64,21 +63,9 @@ async function syncAlarms() {
   await Promise.all(creates);
 }
 
-async function updateBadge() {
-  const todos = await getTodos();
-  const stats = getTodoStats(todos);
-  const count = stats.overdue > 0 ? stats.overdue : stats.today;
-  await chrome.action.setBadgeText({
-    text: count > 0 ? String(Math.min(count, 99)) : "",
-  });
-  await chrome.action.setBadgeBackgroundColor({
-    color: stats.overdue > 0 ? "#c0362c" : "#1d4f91",
-  });
-}
-
 async function refreshReminders() {
   await syncAlarms();
-  await updateBadge();
+  await chrome.action.setBadgeText({ text: "" });
 }
 
 async function handleAlarm(alarm) {
@@ -110,7 +97,6 @@ async function handleAlarm(alarm) {
         : item
     );
     await saveTodos(next);
-    await updateBadge();
     return;
   }
 
@@ -134,7 +120,6 @@ async function handleAlarm(alarm) {
       : item
   );
   await saveTodos(next);
-  await updateBadge();
 }
 
 function setupContextMenus() {
@@ -218,7 +203,6 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
     } else if (info.menuItemId === MENU_ADD_SELECTION) {
       await createFromPage(tab, info.selectionText);
     }
-    await updateBadge();
   } catch (error) {
     console.error("Failed to create todo from context menu", error);
   }
@@ -234,7 +218,7 @@ chrome.commands.onCommand.addListener(async (command) => {
 });
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message?.type === "SYNC_ALARMS" || message?.type === "SYNC_BADGE") {
+  if (message?.type === "SYNC_ALARMS") {
     refreshReminders()
       .then(() => sendResponse({ ok: true }))
       .catch((error) => sendResponse({ ok: false, error: String(error) }));
@@ -243,10 +227,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
   if (message?.type === "ADD_TODO") {
     addTodo(message.payload || {})
-      .then(async (todo) => {
-        await updateBadge();
-        sendResponse({ ok: true, todo });
-      })
+      .then((todo) => sendResponse({ ok: true, todo }))
       .catch((error) => sendResponse({ ok: false, error: String(error) }));
     return true;
   }
@@ -255,10 +236,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     const tab = sender.tab;
     const selectionText = message.selectionText || "";
     createFromPage(tab, selectionText)
-      .then(async (todo) => {
-        await updateBadge();
-        sendResponse({ ok: true, todo });
-      })
+      .then((todo) => sendResponse({ ok: true, todo }))
       .catch((error) => sendResponse({ ok: false, error: String(error) }));
     return true;
   }

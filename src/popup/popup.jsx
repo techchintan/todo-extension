@@ -1,17 +1,14 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import {
-  collectTags,
   createTodo,
   exportTodosPayload,
   filterTodos,
-  getTodoStats,
   getTodos,
   nextOccurrenceAt,
   normalizeTags,
   parseImportPayload,
   requestAlarmSync,
-  requestBadgeSync,
   saveTodos,
   sortTodos,
 } from "../shared/todos";
@@ -32,6 +29,76 @@ const PRIORITIES = [
   { value: 4, label: "P4" },
 ];
 
+function Icon({ children, size = 16 }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      {children}
+    </svg>
+  );
+}
+
+function ExportIcon() {
+  return (
+    <Icon>
+      <path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" />
+      <path d="M14 3v6h6" />
+      <path d="M12 18v-6" />
+      <path d="m9 15 3 3 3-3" />
+    </Icon>
+  );
+}
+
+function ImportIcon() {
+  return (
+    <Icon>
+      <path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" />
+      <path d="M14 3v6h6" />
+      <path d="M12 11v6" />
+      <path d="m9 14 3-3 3 3" />
+    </Icon>
+  );
+}
+
+function SettingsIcon() {
+  return (
+    <Icon>
+      <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09A1.65 1.65 0 0 0 15 4.6a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+    </Icon>
+  );
+}
+
+function EditIcon() {
+  return (
+    <Icon size={15}>
+      <path d="M12 20h9" />
+      <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z" />
+    </Icon>
+  );
+}
+
+function DeleteIcon() {
+  return (
+    <Icon size={15}>
+      <path d="M3 6h18" />
+      <path d="M8 6V4h8v2" />
+      <path d="M19 6l-1 14H6L5 6" />
+      <path d="M10 11v6" />
+      <path d="M14 11v6" />
+    </Icon>
+  );
+}
+
 function toDatetimeLocalValue(timestamp) {
   if (!timestamp) return "";
   const date = new Date(timestamp);
@@ -39,30 +106,6 @@ function toDatetimeLocalValue(timestamp) {
   return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(
     date.getDate()
   )}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
-}
-
-function atLocalTime(baseDate, hours, minutes = 0) {
-  const date = new Date(baseDate);
-  date.setHours(hours, minutes, 0, 0);
-  return date.getTime();
-}
-
-function quickDueValue(kind) {
-  const now = new Date();
-  if (kind === "today") return atLocalTime(now, 18, 0);
-  if (kind === "tomorrow") {
-    const tomorrow = new Date(now);
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    return atLocalTime(tomorrow, 9, 0);
-  }
-  if (kind === "weekend") {
-    const next = new Date(now);
-    const day = next.getDay();
-    const daysUntilSat = (6 - day + 7) % 7 || 7;
-    next.setDate(next.getDate() + daysUntilSat);
-    return atLocalTime(next, 10, 0);
-  }
-  return null;
 }
 
 function formatRelativeDue(timestamp, { kind = "due" } = {}) {
@@ -109,8 +152,7 @@ function hostnameFromUrl(url) {
 const emptyForm = {
   title: "",
   description: "",
-  startAt: "",
-  dueAt: "",
+  reminderAt: "",
   url: "",
   priority: 4,
   tags: "",
@@ -125,19 +167,20 @@ const App = () => {
   const [loading, setLoading] = useState(true);
   const [view, setView] = useState("all");
   const [status, setStatus] = useState("");
-  const [showDetails, setShowDetails] = useState(false);
+  const [screen, setScreen] = useState("list");
   const [query, setQuery] = useState("");
-  const [tagFilter, setTagFilter] = useState("");
   const importRef = useRef(null);
 
-  const stats = useMemo(() => getTodoStats(todos), [todos]);
-  const tags = useMemo(() => collectTags(todos), [todos]);
+  const viewCounts = useMemo(() => {
+    const counts = {};
+    VIEWS.forEach((item) => {
+      counts[item.id] = filterTodos(todos, item.id, { query }).length;
+    });
+    return counts;
+  }, [todos, query]);
   const visibleTodos = useMemo(
-    () =>
-      sortTodos(
-        filterTodos(todos, view, { query, tag: tagFilter })
-      ),
-    [todos, view, query, tagFilter]
+    () => sortTodos(filterTodos(todos, view, { query })),
+    [todos, view, query]
   );
   const todayLabel = useMemo(
     () =>
@@ -153,7 +196,6 @@ const App = () => {
     const items = await getTodos();
     setTodos(sortTodos(items));
     setLoading(false);
-    await requestBadgeSync();
   };
 
   useEffect(() => {
@@ -172,6 +214,12 @@ const App = () => {
     return () => chrome.storage.onChanged.removeListener(onStorageChanged);
   }, []);
 
+  useEffect(() => {
+    if (!status) return undefined;
+    const timer = setTimeout(() => setStatus(""), 2500);
+    return () => clearTimeout(timer);
+  }, [status]);
+
   const persist = async (nextTodos) => {
     const stamped = nextTodos.map((todo) => ({
       ...todo,
@@ -180,14 +228,22 @@ const App = () => {
     const sorted = await saveTodos(stamped);
     setTodos(sorted);
     await requestAlarmSync();
-    await requestBadgeSync();
   };
 
-  const resetForm = () => {
+  const closeForm = () => {
     setForm(emptyForm);
     setEditingId(null);
     setError("");
-    setShowDetails(false);
+    setStatus("");
+    setScreen("list");
+  };
+
+  const openAddForm = () => {
+    setForm(emptyForm);
+    setEditingId(null);
+    setError("");
+    setStatus("");
+    setScreen("form");
   };
 
   const startEdit = (todo) => {
@@ -195,67 +251,49 @@ const App = () => {
     setForm({
       title: todo.title,
       description: todo.description || "",
-      startAt: toDatetimeLocalValue(todo.startAt),
-      dueAt: toDatetimeLocalValue(todo.dueAt),
+      reminderAt: toDatetimeLocalValue(todo.dueAt || todo.startAt),
       url: todo.url || "",
       priority: todo.priority || 4,
       tags: (todo.tags || []).join(", "),
       recurrence: todo.recurrence || "none",
     });
-    setShowDetails(true);
     setError("");
-  };
-
-  const applyQuickDue = (kind) => {
-    const ms = quickDueValue(kind);
-    if (!ms) {
-      setForm({ ...form, dueAt: "" });
-      return;
-    }
-    setForm({ ...form, dueAt: toDatetimeLocalValue(ms) });
-    setShowDetails(true);
+    setStatus("");
+    setScreen("form");
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const title = form.title.trim();
-    const startMs = form.startAt ? new Date(form.startAt).getTime() : null;
-    const dueMs = form.dueAt ? new Date(form.dueAt).getTime() : null;
+    const reminderMs = form.reminderAt
+      ? new Date(form.reminderAt).getTime()
+      : null;
 
     if (!title) {
       setError("Title is required.");
       return;
     }
-    if (form.startAt && Number.isNaN(startMs)) {
-      setError("Start date and time are invalid.");
-      return;
-    }
-    if (form.dueAt && Number.isNaN(dueMs)) {
-      setError("Due date and time are invalid.");
-      return;
-    }
-    if (startMs != null && dueMs != null && startMs > dueMs) {
-      setError("Start time must be before due time.");
+    if (form.reminderAt && Number.isNaN(reminderMs)) {
+      setError("Reminder date and time are invalid.");
       return;
     }
 
     if (editingId) {
       const next = todos.map((todo) => {
         if (todo.id !== editingId) return todo;
-        const dueChanged = todo.dueAt !== dueMs;
-        const startChanged = todo.startAt !== startMs;
+        const reminderChanged = todo.dueAt !== reminderMs;
         return {
           ...todo,
           title,
           description: form.description.trim(),
-          startAt: startMs,
-          dueAt: dueMs,
+          startAt: null,
+          dueAt: reminderMs,
           url: form.url.trim(),
           priority: form.priority,
           tags: normalizeTags(form.tags),
           recurrence: form.recurrence,
-          notified: dueChanged ? false : todo.notified,
-          startNotified: startChanged ? false : todo.startNotified,
+          notified: reminderChanged ? false : todo.notified,
+          startNotified: true,
           updatedAt: Date.now(),
         };
       });
@@ -264,8 +302,7 @@ const App = () => {
       const todo = createTodo({
         title,
         description: form.description,
-        startAt: startMs,
-        dueAt: dueMs,
+        dueAt: reminderMs,
         url: form.url,
         priority: form.priority,
         tags: form.tags,
@@ -274,8 +311,12 @@ const App = () => {
       await persist([...todos, todo]);
     }
 
-    resetForm();
-    setStatus(editingId ? "Todo updated." : "Todo added.");
+    const wasEditing = Boolean(editingId);
+    setForm(emptyForm);
+    setEditingId(null);
+    setError("");
+    setScreen("list");
+    setStatus(wasEditing ? "Todo updated." : "Todo saved.");
   };
 
   const addCurrentPage = async () => {
@@ -287,20 +328,18 @@ const App = () => {
         currentWindow: true,
       });
       if (!tab?.url || tab.url.startsWith("chrome://")) {
-        setError("This page can’t be saved as a todo.");
+        setStatus("This page can’t be saved as a todo.");
         return;
       }
       const todo = createTodo({
         title: (tab.title || "Untitled page").slice(0, 120),
         url: tab.url,
-        priority: form.priority,
-        tags: form.tags,
       });
       await persist([...todos, todo]);
-      setStatus("Page added to Inbox.");
       setView("inbox");
+      setStatus("Page added to Inbox.");
     } catch {
-      setError("Could not read the current tab.");
+      setStatus("Could not read the current tab.");
     }
   };
 
@@ -336,7 +375,7 @@ const App = () => {
   const removeTodo = async (id) => {
     await persist(todos.filter((todo) => todo.id !== id));
     if (editingId === id) {
-      resetForm();
+      closeForm();
     }
   };
 
@@ -388,154 +427,239 @@ const App = () => {
             <p className="eyebrow">{todayLabel}</p>
             <h1>Todo Reminder</h1>
           </div>
-          <div className="header-actions">
-            <button type="button" className="icon-btn" onClick={exportTodos} title="Export">
-              Export
-            </button>
-            <button
-              type="button"
-              className="icon-btn"
-              onClick={() => importRef.current?.click()}
-              title="Import"
-            >
-              Import
-            </button>
-            <button
-              type="button"
-              className="icon-btn"
-              onClick={() => chrome.runtime.openOptionsPage()}
-              title="Settings"
-            >
-              Settings
-            </button>
-            <input
-              ref={importRef}
-              type="file"
-              accept="application/json,.json"
-              hidden
-              onChange={importTodos}
-            />
-          </div>
-        </div>
-        <div className="stats" aria-label="Todo summary">
-          <div className="stat">
-            <span className="stat-value">{stats.open}</span>
-            <span className="stat-label">Open</span>
-          </div>
-          <div className="stat">
-            <span className="stat-value">{stats.today}</span>
-            <span className="stat-label">Today</span>
-          </div>
-          <div className={`stat${stats.overdue ? " alert" : ""}`}>
-            <span className="stat-value">{stats.overdue}</span>
-            <span className="stat-label">Overdue</span>
-          </div>
+          {screen === "list" ? (
+            <div className="header-actions">
+              <button
+                type="button"
+                className="icon-btn"
+                onClick={exportTodos}
+                title="Export"
+                aria-label="Export"
+              >
+                <ExportIcon />
+              </button>
+              <button
+                type="button"
+                className="icon-btn"
+                onClick={() => importRef.current?.click()}
+                title="Import"
+                aria-label="Import"
+              >
+                <ImportIcon />
+              </button>
+              <button
+                type="button"
+                className="icon-btn"
+                onClick={() => chrome.runtime.openOptionsPage()}
+                title="Settings"
+                aria-label="Settings"
+              >
+                <SettingsIcon />
+              </button>
+              <input
+                ref={importRef}
+                type="file"
+                accept="application/json,.json"
+                hidden
+                onChange={importTodos}
+              />
+            </div>
+          ) : null}
         </div>
       </header>
 
-      <div className="toolbar">
-        <input
-          className="search-input"
-          type="search"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search todos, tags, links…"
-          aria-label="Search todos"
-        />
-      </div>
+      {status && screen === "list" ? <p className="status banner">{status}</p> : null}
 
-      <div className="view-tabs" role="tablist" aria-label="Todo views">
-        {VIEWS.map((item) => (
-          <button
-            key={item.id}
-            type="button"
-            role="tab"
-            aria-selected={view === item.id}
-            className={`view-tab${view === item.id ? " active" : ""}`}
-            onClick={() => setView(item.id)}
-          >
-            {item.label}
-          </button>
-        ))}
-      </div>
+      {screen === "list" ? (
+        <>
+          <div className="toolbar">
+            <input
+              className="search-input"
+              type="search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search todos, tags, links…"
+              aria-label="Search todos"
+            />
+          </div>
 
-      {tags.length ? (
-        <div className="tag-row" aria-label="Filter by tag">
-          <button
-            type="button"
-            className={`tag-chip${!tagFilter ? " active" : ""}`}
-            onClick={() => setTagFilter("")}
-          >
-            All tags
-          </button>
-          {tags.map((tag) => (
+          <div className="view-tabs" role="tablist" aria-label="Todo views">
+            {VIEWS.map((item) => (
+              <button
+                key={item.id}
+                type="button"
+                role="tab"
+                aria-selected={view === item.id}
+                className={`view-tab${view === item.id ? " active" : ""}`}
+                onClick={() => setView(item.id)}
+              >
+                <span>{item.label}</span>
+                <span className="view-count">{viewCounts[item.id] || 0}</span>
+              </button>
+            ))}
+          </div>
+
+          <section className="list-section">
+            {view === "completed" && completedCount > 0 ? (
+              <div className="list-head">
+                <button
+                  type="button"
+                  className="text-btn"
+                  onClick={clearCompleted}
+                >
+                  Clear all
+                </button>
+              </div>
+            ) : null}
+
+            {loading ? <p className="muted">Loading…</p> : null}
+            {!loading && visibleTodos.length === 0 ? (
+              <div className="empty-card">
+                <p className="empty-title">Nothing here yet</p>
+                <p className="empty">
+                  {query
+                    ? "No matches for this search."
+                    : "Tap New todo to create your first task."}
+                </p>
+              </div>
+            ) : null}
+
+            <ul className="todo-list">
+              {visibleTodos.map((todo) => {
+                const due = formatRelativeDue(todo.dueAt, { kind: "due" });
+                const start = formatRelativeDue(todo.startAt, { kind: "start" });
+                const priority = todo.priority || 4;
+                return (
+                  <li
+                    key={todo.id}
+                    className={`todo-item p${priority}${
+                      todo.completed ? " completed" : ""
+                    }`}
+                  >
+                    <div className="todo-main">
+                      <label className="check">
+                        <input
+                          type="checkbox"
+                          checked={todo.completed}
+                          onChange={() => toggleComplete(todo.id)}
+                        />
+                        <span className="todo-title">{todo.title}</span>
+                      </label>
+                      {todo.description ? (
+                        <p className="todo-desc">{todo.description}</p>
+                      ) : null}
+                      <div className="meta-row">
+                        <span className={`priority-tag p${priority}`}>
+                          P{priority}
+                        </span>
+                        {todo.startAt ? (
+                          <span className={`due-tag ${start.tone}`}>
+                            {start.text}
+                          </span>
+                        ) : null}
+                        {todo.dueAt ? (
+                          <span className={`due-tag ${due.tone}`}>{due.text}</span>
+                        ) : !todo.startAt ? (
+                          <span className={`due-tag ${due.tone}`}>{due.text}</span>
+                        ) : null}
+                        {todo.recurrence && todo.recurrence !== "none" ? (
+                          <span className="due-tag">{todo.recurrence}</span>
+                        ) : null}
+                        {(todo.tags || []).map((tag) => (
+                          <span key={tag} className="tag-mini">
+                            #{tag}
+                          </span>
+                        ))}
+                        {todo.url ? (
+                          <a
+                            className="todo-link"
+                            href={todo.url}
+                            target="_blank"
+                            rel="noreferrer"
+                            title={todo.url}
+                          >
+                            {hostnameFromUrl(todo.url)}
+                          </a>
+                        ) : null}
+                      </div>
+                    </div>
+                    <div className="todo-actions">
+                      <button
+                        type="button"
+                        className="icon-btn edit"
+                        onClick={() => startEdit(todo)}
+                        title="Edit"
+                        aria-label="Edit"
+                      >
+                        <EditIcon />
+                      </button>
+                      <button
+                        type="button"
+                        className="icon-btn danger"
+                        onClick={() => removeTodo(todo.id)}
+                        title="Delete"
+                        aria-label="Delete"
+                      >
+                        <DeleteIcon />
+                      </button>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+
+          <div className="list-footer">
             <button
-              key={tag}
               type="button"
-              className={`tag-chip${tagFilter === tag ? " active" : ""}`}
-              onClick={() => setTagFilter(tagFilter === tag ? "" : tag)}
+              className="btn outline"
+              onClick={addCurrentPage}
             >
-              #{tag}
+              Save page
             </button>
-          ))}
-        </div>
-      ) : null}
-
-      <form className="form" onSubmit={handleSubmit}>
-        <div className="quick-row">
-          <input
-            className="quick-input"
-            type="text"
-            value={form.title}
-            onChange={(e) => setForm({ ...form, title: e.target.value })}
-            placeholder={editingId ? "Edit todo…" : "Quick add a task…"}
-            maxLength={120}
-            autoFocus
-            aria-label="Todo title"
-          />
-          <button type="submit" className="btn primary">
-            {editingId ? "Save" : "Add"}
-          </button>
-        </div>
-
-        <div className="chip-row" aria-label="Quick schedule">
-          <button type="button" className="chip" onClick={() => applyQuickDue("today")}>
-            Today 6pm
-          </button>
-          <button type="button" className="chip" onClick={() => applyQuickDue("tomorrow")}>
-            Tomorrow
-          </button>
-          <button type="button" className="chip" onClick={() => applyQuickDue("weekend")}>
-            Weekend
-          </button>
-          <button type="button" className="chip" onClick={() => applyQuickDue("clear")}>
-            No date
-          </button>
-        </div>
-
-        <div className="priority-row" role="group" aria-label="Priority">
-          {PRIORITIES.map((item) => (
             <button
-              key={item.value}
               type="button"
-              className={`priority p${item.value}${
-                form.priority === item.value ? " active" : ""
-              }`}
-              onClick={() => setForm({ ...form, priority: item.value })}
+              className="btn primary"
+              onClick={openAddForm}
             >
-              {item.label}
+              New todo
             </button>
-          ))}
-          <button
-            type="button"
-            className="details-toggle"
-            onClick={() => setShowDetails((open) => !open)}
-          >
-            {showDetails ? "Hide details" : "More details"}
-          </button>
-        </div>
+          </div>
+        </>
+      ) : (
+        <form className="form" onSubmit={handleSubmit}>
+          <h2 className="form-title">
+            {editingId ? "Edit todo" : "New todo"}
+          </h2>
 
-        {showDetails ? (
+          <label>
+            Title
+            <input
+              className="quick-input"
+              type="text"
+              value={form.title}
+              onChange={(e) => setForm({ ...form, title: e.target.value })}
+              placeholder="What needs doing?"
+              maxLength={120}
+              autoFocus
+            />
+          </label>
+
+          <div className="priority-row" role="group" aria-label="Priority">
+            {PRIORITIES.map((item) => (
+              <button
+                key={item.value}
+                type="button"
+                className={`priority p${item.value}${
+                  form.priority === item.value ? " active" : ""
+                }`}
+                onClick={() => setForm({ ...form, priority: item.value })}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
+
           <div className="details">
             <label>
               Notes
@@ -575,24 +699,16 @@ const App = () => {
             </label>
 
             <label>
-              Start date & time
+              Reminder
               <input
                 type="datetime-local"
-                value={form.startAt}
-                onChange={(e) => setForm({ ...form, startAt: e.target.value })}
+                value={form.reminderAt}
+                onChange={(e) =>
+                  setForm({ ...form, reminderAt: e.target.value })
+                }
               />
             </label>
-            <p className="hint">Optional — notifies when the todo should start.</p>
-
-            <label>
-              Due date & time
-              <input
-                type="datetime-local"
-                value={form.dueAt}
-                onChange={(e) => setForm({ ...form, dueAt: e.target.value })}
-              />
-            </label>
-            <p className="hint">Optional — notifies when the todo is due.</p>
+            <p className="hint">Optional — get a notification at this time.</p>
 
             {editingId ? (
               <label>
@@ -606,138 +722,23 @@ const App = () => {
               </label>
             ) : null}
           </div>
-        ) : null}
 
-        {error ? <p className="error">{error}</p> : null}
-        {status ? <p className="status">{status}</p> : null}
+          {error ? <p className="error">{error}</p> : null}
 
-        <div className="form-actions">
-          {!editingId ? (
-            <button type="button" className="btn ghost" onClick={addCurrentPage}>
-              Save current page
+          <div className="form-actions row">
+            <button
+              type="button"
+              className="btn outline"
+              onClick={closeForm}
+            >
+              Close
             </button>
-          ) : (
-            <button type="button" className="btn ghost" onClick={resetForm}>
-              Cancel edit
+            <button type="submit" className="btn primary">
+              Save
             </button>
-          )}
-        </div>
-      </form>
-
-      <section className="list-section">
-        <div className="list-head">
-          <h2>
-            {VIEWS.find((item) => item.id === view)?.label || "Todos"}
-            {!loading ? (
-              <span className="count"> {visibleTodos.length}</span>
-            ) : null}
-          </h2>
-          {view === "completed" && completedCount > 0 ? (
-            <button type="button" className="text-btn" onClick={clearCompleted}>
-              Clear all
-            </button>
-          ) : null}
-        </div>
-
-        {loading ? <p className="muted">Loading…</p> : null}
-        {!loading && visibleTodos.length === 0 ? (
-          <div className="empty-card">
-            <p className="empty-title">Nothing here yet</p>
-            <p className="empty">
-              {query || tagFilter
-                ? "No matches for this search/tag."
-                : view === "today"
-                  ? "Schedule a task for today to fill this view."
-                  : view === "inbox"
-                    ? "Save a page or add a todo without a due date."
-                    : "Add a task above to get started."}
-            </p>
           </div>
-        ) : null}
-
-        <ul className="todo-list">
-          {visibleTodos.map((todo) => {
-            const due = formatRelativeDue(todo.dueAt, { kind: "due" });
-            const start = formatRelativeDue(todo.startAt, { kind: "start" });
-            const priority = todo.priority || 4;
-            return (
-              <li
-                key={todo.id}
-                className={`todo-item p${priority}${
-                  todo.completed ? " completed" : ""
-                }`}
-              >
-                <div className="todo-main">
-                  <label className="check">
-                    <input
-                      type="checkbox"
-                      checked={todo.completed}
-                      onChange={() => toggleComplete(todo.id)}
-                    />
-                    <span className="todo-title">{todo.title}</span>
-                  </label>
-                  {todo.description ? (
-                    <p className="todo-desc">{todo.description}</p>
-                  ) : null}
-                  <div className="meta-row">
-                    <span className={`priority-tag p${priority}`}>P{priority}</span>
-                    {todo.startAt ? (
-                      <span className={`due-tag ${start.tone}`}>{start.text}</span>
-                    ) : null}
-                    {todo.dueAt ? (
-                      <span className={`due-tag ${due.tone}`}>{due.text}</span>
-                    ) : (
-                      !todo.startAt ? (
-                        <span className={`due-tag ${due.tone}`}>{due.text}</span>
-                      ) : null
-                    )}
-                    {todo.recurrence && todo.recurrence !== "none" ? (
-                      <span className="due-tag">{todo.recurrence}</span>
-                    ) : null}
-                    {(todo.tags || []).map((tag) => (
-                      <button
-                        key={tag}
-                        type="button"
-                        className="tag-mini"
-                        onClick={() => setTagFilter(tag)}
-                      >
-                        #{tag}
-                      </button>
-                    ))}
-                    {todo.url ? (
-                      <a
-                        className="todo-link"
-                        href={todo.url}
-                        target="_blank"
-                        rel="noreferrer"
-                        title={todo.url}
-                      >
-                        {hostnameFromUrl(todo.url)}
-                      </a>
-                    ) : null}
-                  </div>
-                </div>
-                <div className="todo-actions">
-                  <button
-                    type="button"
-                    className="btn small"
-                    onClick={() => startEdit(todo)}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    type="button"
-                    className="btn small danger"
-                    onClick={() => removeTodo(todo.id)}
-                  >
-                    Delete
-                  </button>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
-      </section>
+        </form>
+      )}
     </div>
   );
 };

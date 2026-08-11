@@ -11,7 +11,6 @@ Chrome extension for managing a todo list with system notifications when a due d
 - Priorities (P1–P4), tags, search, and recurring daily/weekly todos
 -   Complete action on due notifications
 - Optional Chrome sync + Export/Import backup
-- Extension badge for overdue/today count
 - Chrome notifications when a todo **starts** (“Todo starting”) or is **due** (“Todo due”)
 - Completing a recurring todo advances start and due to the next occurrence
 

@@ -19,16 +19,16 @@
   height: 48px;
   border: none;
   border-radius: 50%;
-  background: #1d4f91;
+  background: #00adb5;
   color: #fff;
   font-size: 28px;
   line-height: 1;
   cursor: pointer;
-  box-shadow: 0 4px 16px rgba(29, 79, 145, 0.35);
+  box-shadow: 0 4px 16px rgba(0, 173, 181, 0.35);
 }
 
 .tr-fab:hover {
-  background: #163d72;
+  background: #00949b;
 }
 
 .tr-panel {
@@ -42,10 +42,10 @@
   gap: 10px;
   padding: 12px;
   border-radius: 12px;
-  background: #fff;
-  color: #0f172a;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.22);
-  border: 1px solid #e2e8f0;
+  background: #eeeeee;
+  color: #222831;
+  box-shadow: 0 10px 30px rgba(34, 40, 49, 0.18);
+  border: 1px solid #d5d7db;
 }
 
 .tr-header {
@@ -108,7 +108,7 @@
 .tr-message {
   margin: 0;
   font-size: 12px;
-  color: #1d4f91;
+  color: #00adb5;
 }
 
 .tr-actions {
@@ -118,28 +118,29 @@
 
 .tr-btn {
   flex: 1;
-  border: 1px solid #cbd5e1;
-  background: #fff;
-  color: #1e293b;
-  border-radius: 6px;
+  border: none;
+  background: #393e46;
+  color: #eeeeee;
+  border-radius: 4px;
   padding: 8px 10px;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
   cursor: pointer;
 }
 
 .tr-btn:hover:not(:disabled) {
-  background: #f8fafc;
+  background: #222831;
 }
 
 .tr-btn.primary {
-  background: #1d4f91;
-  border-color: #1d4f91;
+  background: #00adb5;
   color: #fff;
 }
 
 .tr-btn.primary:hover:not(:disabled) {
-  background: #163d72;
+  background: #00949b;
 }
 
 .tr-btn:disabled {
