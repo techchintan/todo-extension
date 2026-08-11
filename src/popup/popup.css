@@ -1,20 +1,20 @@
 :root {
-  --ink: #222831;
-  --muted: #393e46;
-  --line: #d5d7db;
-  --paper: #eeeeee;
+  --ink: #393e46;
+  --muted: #929aab;
+  --line: #eeeeee;
+  --paper: #f7f7f7;
   --panel: #ffffff;
-  --accent: #00adb5;
-  --accent-deep: #00949b;
-  --accent-soft: #d6f3f5;
-  --surface-tint: #e4e5e7;
-  --warn: #c27803;
+  --accent: #393e46;
+  --accent-deep: #2c3036;
+  --accent-soft: #eeeeee;
+  --surface-tint: #eeeeee;
+  --warn: #929aab;
   --danger: #e11d48;
   --danger-deep: #be123c;
   --p1: #e11d48;
-  --p2: #ea580c;
-  --p3: #00adb5;
-  --p4: #393e46;
+  --p2: #929aab;
+  --p3: #393e46;
+  --p4: #929aab;
   --display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
   --sans: Candara, "Segoe UI", Calibri, sans-serif;
   --btn-radius: 4px;
@@ -85,9 +85,9 @@ body {
 }
 
 .icon-btn {
-  border: none;
-  background: var(--accent);
-  color: #fff;
+  border: 1.5px solid var(--muted);
+  background: transparent;
+  color: var(--ink);
   border-radius: var(--btn-radius);
   width: 34px;
   height: 34px;
@@ -100,25 +100,30 @@ body {
 }
 
 .icon-btn:hover {
-  background: var(--accent-deep);
+  background: var(--surface-tint);
+  border-color: var(--ink);
 }
 
 .icon-btn.edit {
+  border-color: transparent;
   background: var(--accent-soft);
   color: var(--accent-deep);
 }
 
 .icon-btn.edit:hover {
-  background: #bfe9ec;
+  background: #e0e3e8;
+  border-color: transparent;
 }
 
 .icon-btn.danger {
+  border-color: transparent;
   background: var(--danger);
   color: #fff;
 }
 
 .icon-btn.danger:hover {
   background: var(--danger-deep);
+  border-color: transparent;
 }
 
 .status.banner {
@@ -213,7 +218,7 @@ body {
 }
 
 .view-tab:hover {
-  background: #dbdcde;
+  background: #e0e3e8;
 }
 
 .view-tab.active {
@@ -445,7 +450,7 @@ body {
 }
 
 .btn.secondary:hover {
-  background: #bfe9ec;
+  background: #e0e3e8;
 }
 
 .btn.outline {
@@ -467,7 +472,7 @@ body {
 }
 
 .btn.small:hover {
-  background: #dbdcde;
+  background: #e0e3e8;
 }
 
 .btn.danger {
@@ -553,7 +558,7 @@ body {
   max-height: 360px;
   overflow-y: auto;
   scrollbar-width: thin;
-  scrollbar-color: #393e46 #e4e5e7;
+  scrollbar-color: #929aab #eeeeee;
 }
 
 .todo-list::-webkit-scrollbar {
@@ -561,21 +566,21 @@ body {
 }
 
 .todo-list::-webkit-scrollbar-track {
-  background: #e4e5e7;
+  background: #eeeeee;
   border-radius: 999px;
 }
 
 .todo-list::-webkit-scrollbar-thumb {
-  background: #393e46;
+  background: #929aab;
   border-radius: 999px;
 }
 
 .todo-list::-webkit-scrollbar-thumb:hover {
-  background: #222831;
+  background: #393e46;
 }
 
 .todo-list::-webkit-scrollbar-thumb:active {
-  background: #00adb5;
+  background: #393e46;
 }
 
 .todo-item {

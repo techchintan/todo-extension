@@ -76,10 +76,12 @@ async function handleAlarm(alarm) {
   const todo = todos.find((item) => item.id === parsed.id);
   if (!todo || todo.completed) return;
 
+  const isRecurring = todo.recurrence && todo.recurrence !== "none";
+
   if (parsed.type === "start") {
     if (todo.startNotified || todo.startAt == null) return;
 
-    await chrome.notifications.create(startNotificationIdForTodo(todo.id), {
+    const startNotification = {
       type: "basic",
       iconUrl: "icon.png",
       title: "Todo starting",
@@ -88,21 +90,36 @@ async function handleAlarm(alarm) {
       priority: 2,
       requireInteraction: true,
       silent: false,
-      buttons: [{ title: "Complete" }],
-    });
-
-    const next = todos.map((item) =>
-      item.id === parsed.id
-        ? { ...item, startNotified: true, updatedAt: Date.now() }
-        : item
+    };
+    if (isRecurring) {
+      startNotification.buttons = [{ title: "Complete" }];
+    }
+    await chrome.notifications.create(
+      startNotificationIdForTodo(todo.id),
+      startNotification
     );
+
+    const next = todos.map((item) => {
+      if (item.id !== parsed.id) return item;
+      if (isRecurring) {
+        return { ...item, startNotified: true, updatedAt: Date.now() };
+      }
+      return {
+        ...item,
+        completed: true,
+        notified: true,
+        startNotified: true,
+        updatedAt: Date.now(),
+      };
+    });
     await saveTodos(next);
+    await refreshReminders();
     return;
   }
 
   if (todo.notified || todo.dueAt == null) return;
 
-  await chrome.notifications.create(dueNotificationIdForTodo(todo.id), {
+  const dueNotification = {
     type: "basic",
     iconUrl: "icon.png",
     title: "Todo due",
@@ -111,15 +128,30 @@ async function handleAlarm(alarm) {
     priority: 2,
     requireInteraction: true,
     silent: false,
-    buttons: [{ title: "Complete" }],
-  });
-
-  const next = todos.map((item) =>
-    item.id === parsed.id
-      ? { ...item, notified: true, updatedAt: Date.now() }
-      : item
+  };
+  if (isRecurring) {
+    dueNotification.buttons = [{ title: "Complete" }];
+  }
+  await chrome.notifications.create(
+    dueNotificationIdForTodo(todo.id),
+    dueNotification
   );
+
+  const next = todos.map((item) => {
+    if (item.id !== parsed.id) return item;
+    if (isRecurring) {
+      return { ...item, notified: true, updatedAt: Date.now() };
+    }
+    return {
+      ...item,
+      completed: true,
+      notified: true,
+      startNotified: true,
+      updatedAt: Date.now(),
+    };
+  });
   await saveTodos(next);
+  await refreshReminders();
 }
 
 function setupContextMenus() {
