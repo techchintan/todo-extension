@@ -6,10 +6,9 @@ Chrome extension for managing a todo list with system notifications when a due d
 
 - Quick-add todos from the popup (`Alt+Shift+T`)
 - Add the current website / selected text as a todo
-- Floating quick-add on web pages
 - Views: All, Today (includes overdue), Upcoming, Inbox, Done
 - Priorities (P1–P4), tags, search, and recurring daily/weekly todos
--   Complete action on due notifications
+- Complete action on due notifications
 - Optional Chrome sync + Export/Import backup
 - Chrome notifications when a todo **starts** (“Todo starting”) or is **due** (“Todo due”)
 - Completing a recurring todo advances start and due to the next occurrence
@@ -22,12 +21,18 @@ Chrome extension for managing a todo list with system notifications when a due d
 4. After updates, click **Reload** on the extension card
 5. Optional: enable sync in **Settings**, or change the shortcut at `chrome://extensions/shortcuts`
 
+## Chrome Web Store
+
+1. Replace the contact email in [`docs/privacy-policy.html`](docs/privacy-policy.html) and host that file on a public HTTPS URL
+2. `npm run package` — production build + `todo-reminder-<version>.zip` at the repo root
+3. Upload the zip in the [Chrome Web Store Developer Dashboard](https://chrome.google.com/webstore/devconsole)
+4. Follow the listing copy, privacy answers, and checklist in [`docs/chrome-web-store.md`](docs/chrome-web-store.md)
+
 ## Web clipping
 
 - **Popup:** **Save current page**
 - **Right-click page:** **Add page as todo**
 - **Right-click selection:** **Add selection as todo**
-- **On-page FAB:** **+** → Save page or Save selection
 
 ## Notifications when Chrome windows are closed
 

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Todo Reminder — Privacy Policy</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --text: #1a1a1a;
+        --muted: #555;
+        --border: #e5e5e5;
+        --bg: #fafafa;
+      }
+      body {
+        margin: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        line-height: 1.6;
+        color: var(--text);
+        background: var(--bg);
+      }
+      main {
+        max-width: 42rem;
+        margin: 0 auto;
+        padding: 2.5rem 1.25rem 4rem;
+        background: #fff;
+        border-left: 1px solid var(--border);
+        border-right: 1px solid var(--border);
+        min-height: 100vh;
+        box-sizing: border-box;
+      }
+      h1 {
+        font-size: 1.75rem;
+        margin: 0 0 0.25rem;
+      }
+      h2 {
+        font-size: 1.15rem;
+        margin: 2rem 0 0.5rem;
+      }
+      p,
+      li {
+        color: var(--muted);
+      }
+      .meta {
+        font-size: 0.9rem;
+        color: #777;
+        margin-bottom: 1.5rem;
+      }
+      ul {
+        padding-left: 1.25rem;
+      }
+      a {
+        color: #0b57d0;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Todo Reminder — Privacy Policy</h1>
+      <p class="meta">
+        Effective date: August 12, 2026<br />
+        Extension: Todo Reminder (Chrome)
+      </p>
+
+      <p>
+        Todo Reminder helps you save todos and receive Chrome notifications when
+        items start or are due. This policy explains what data the extension
+        handles and how it is used.
+      </p>
+
+      <h2>Data we handle</h2>
+      <p>The extension stores the information you enter or save as todos, including:</p>
+      <ul>
+        <li>Todo titles, descriptions/notes, tags, and priorities</li>
+        <li>Start and due dates/times, completion status, and recurrence settings</li>
+        <li>
+          Page titles and URLs when you explicitly save the current page or
+          selection as a todo
+        </li>
+        <li>Settings such as whether Chrome sync is enabled</li>
+      </ul>
+      <p>
+        Selected text is only saved when you choose “Add selection as todo” (or
+        an equivalent action). The extension does not browse or scrape websites
+        in the background.
+      </p>
+
+      <h2>How data is stored</h2>
+      <ul>
+        <li>
+          By default, todos and settings are stored locally on your device using
+          <code>chrome.storage.local</code>.
+        </li>
+        <li>
+          If you enable Chrome sync in Settings, the same data may be stored in
+          <code>chrome.storage.sync</code> and synchronized through your Google
+          account according to Google’s sync and storage limits.
+        </li>
+      </ul>
+      <p>
+        Todo Reminder does not operate its own servers and does not upload your
+        todos to a developer-controlled backend.
+      </p>
+
+      <h2>What we do not collect</h2>
+      <ul>
+        <li>No analytics, advertising, or tracking SDKs</li>
+        <li>No sale of user data</li>
+        <li>No remote code loading from third-party sites</li>
+        <li>
+          No automatic collection of browsing history beyond titles/URLs you
+          explicitly save as todos
+        </li>
+      </ul>
+
+      <h2>Permissions (why they exist)</h2>
+      <ul>
+        <li><strong>storage</strong> — save todos and settings</li>
+        <li><strong>alarms</strong> — schedule start/due reminders</li>
+        <li>
+          <strong>notifications</strong> — show start/due alerts and a Complete
+          action
+        </li>
+        <li>
+          <strong>contextMenus</strong> — add the current page or selection as a
+          todo from the right-click menu
+        </li>
+        <li>
+          <strong>activeTab</strong> — read the current tab title/URL only when
+          you invoke the extension (for example, Save current page in the
+          popup)
+        </li>
+      </ul>
+
+      <h2>Data sharing</h2>
+      <p>
+        We do not sell or share your todos with third parties. If Chrome sync is
+        enabled, Google may process synced storage as part of Chrome Sync under
+        Google’s own policies.
+      </p>
+
+      <h2>Retention and deletion</h2>
+      <p>Your data remains until you delete it. You can:</p>
+      <ul>
+        <li>Delete individual todos or clear completed items in the extension</li>
+        <li>Turn off Chrome sync in Settings</li>
+        <li>Uninstall the extension to remove local extension storage</li>
+        <li>
+          Use Export / Import in the popup if you want a personal backup copy
+        </li>
+      </ul>
+
+      <h2>Children</h2>
+      <p>
+        Todo Reminder is not directed at children and does not knowingly collect
+        personal information from children.
+      </p>
+
+      <h2>Changes</h2>
+      <p>
+        We may update this policy when the extension’s data practices change.
+        The effective date at the top will be revised when that happens.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        Questions about this policy or your data:
+        <!-- Replace with your real contact email before publishing -->
+        <a href="mailto:YOUR_EMAIL@example.com">YOUR_EMAIL@example.com</a>
+      </p>
+    </main>
+  </body>
+</html>

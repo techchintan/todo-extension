@@ -1,10 +1,11 @@
 {
-  "name": "react-chrome-extension",
-  "version": "1.0.0",
-  "description": "react chrome extension template",
+  "name": "todo-reminder",
+  "version": "1.2.0",
+  "description": "Todo Reminder Chrome extension — todos with start/due notifications",
   "scripts": {
     "start": "set NODE_OPTIONS=--openssl-legacy-provider&& webpack --watch --progress --config webpack.dev.js",
-    "build": "set NODE_OPTIONS=--openssl-legacy-provider&& webpack --progress --config webpack.prod.js"
+    "build": "set NODE_OPTIONS=--openssl-legacy-provider&& webpack --progress --config webpack.prod.js",
+    "package": "npm run build && node scripts/package-extension.js"
   },
   "author": "",
   "devDependencies": {
