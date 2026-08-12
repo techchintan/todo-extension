@@ -1,7 +1,7 @@
 {
-  "name": "todo-reminder",
+  "name": "quicktask",
   "version": "1.0.0",
-  "description": "Todo Reminder Chrome extension — todos with start/due notifications",
+  "description": "QuickTask — to-do list, tasks & reminders for Chrome",
   "scripts": {
     "start": "set NODE_OPTIONS=--openssl-legacy-provider&& webpack --watch --progress --config webpack.dev.js",
     "build": "set NODE_OPTIONS=--openssl-legacy-provider&& webpack --progress --config webpack.prod.js",

@@ -1,18 +1,18 @@
 {
   "extName": {
-    "message": "Todo Reminder",
+    "message": "QuickTask - Список дел, задачи и напоминания",
     "description": "Extension name"
   },
   "extDescription": {
-    "message": "Быстрое добавление дел, сохранение страниц, напоминания, синхронизация и горячие клавиши",
+    "message": "Самый быстрый офлайн-список дел и менеджер задач. Ежедневные напоминания, чек-листы и сохранение сайтов как задач в один клик.",
     "description": "Extension description in Chrome Web Store"
   },
   "actionTitle": {
-    "message": "Todo Reminder",
+    "message": "QuickTask",
     "description": "Toolbar tooltip"
   },
   "commandQuickAdd": {
-    "message": "Открыть быстрое добавление Todo Reminder",
+    "message": "Открыть быстрое добавление QuickTask",
     "description": "Keyboard command description"
   },
   "viewAll": {
@@ -301,7 +301,7 @@
     }
   },
   "optionsTitle": {
-    "message": "Настройки Todo Reminder"
+    "message": "Настройки QuickTask"
   },
   "optionsSubtitle": {
     "message": "Напоминания, синхронизация, сохранение страниц и горячие клавиши."
@@ -367,7 +367,7 @@
     "message": "Горячая клавиша"
   },
   "shortcutDefault": {
-    "message": "По умолчанию: Alt + Shift + T открывает всплывающее окно Todo Reminder."
+    "message": "По умолчанию: Alt + Shift + T открывает всплывающее окно QuickTask."
   },
   "shortcutHint": {
     "message": "Измените в chrome://extensions/shortcuts."

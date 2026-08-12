@@ -1,4 +1,4 @@
-# Chrome Web Store — Todo Reminder
+# Chrome Web Store — QuickTask
 
 Use this when submitting at the [Chrome Web Store Developer Dashboard](https://chrome.google.com/webstore/devconsole).
 
@@ -8,13 +8,13 @@ Use this when submitting at the [Chrome Web Store Developer Dashboard](https://c
 npm run package
 ```
 
-Upload the generated zip (for example `todo-reminder-1.2.0.zip`) from the repo root. Do **not** upload the whole source repo.
+Upload the generated zip (for example `quicktask-1.2.0.zip`) from the repo root. Do **not** upload the whole source repo.
 
 ## Listing
 
 | Field | Value |
 | --- | --- |
-| Name | Todo Reminder |
+| Name | QuickTask - To Do List, Tasks & Reminders |
 | Category | Productivity |
 | Language | English (add other locales as needed) |
 
@@ -25,26 +25,40 @@ Help users create and manage todos and receive Chrome notifications when todos s
 ### Short description (≤132 characters)
 
 ```
-Quick-add todos, save pages or selections, priorities and tags, and Chrome reminders when items start or are due.
+The fastest offline to-do list and task manager. Set daily reminders, organize checklists, and save websites as tasks in one click.
 ```
 
 ### Detailed description
 
 ```
-Todo Reminder is a lightweight todo list for Chrome with system notifications.
+The ultimate quick-capture to-do list and task manager for your browser.
 
-Features
-• Quick-add from the toolbar popup (shortcut: Alt+Shift+T)
-• Save the current page or selected text as a todo (popup or right-click menu)
-• Views: All, Today (includes overdue), Upcoming, Inbox, Done
-• Priorities (P1–P4), tags, search, and daily/weekly recurrence
-• Chrome notifications when a todo starts or is due, with a Complete action
-• Optional Chrome sync and Export/Import backup
+QuickTask is a lightning-fast, privacy-first to-do list designed to keep you focused. Whether you need to set a quick reminder, organize your daily checklist, or save an important website for later, QuickTask manages it all without ever leaving your current tab.
 
-Privacy
-• Todos stay in Chrome storage on your device by default
-• Optional sync uses Google chrome.storage.sync when you turn it on
-• No analytics and no developer-operated servers
+Built for speed and simplicity, you can capture tasks instantly using keyboard shortcuts or right-click menus, ensuring you never lose track of an important thought or link.
+
+⭐ CORE FEATURES
+
+📝 Smart Task Manager: Easily create, edit, and organize tasks with full support for notes, priority levels (P1-P4), and custom tags.
+
+⏰ Advanced Reminders: Never miss a deadline. Set one-time or recurring (daily/weekly) alarms. Get instant desktop notifications when a task is starting or due.
+
+⚡ Quick Capture: Hit Alt+Shift+T to instantly open your task list, or right-click anywhere on a webpage to save the current text or URL directly to your Inbox.
+
+📅 Organized Views: Filter your workflow exactly how you want with custom views for Today, Upcoming, Inbox, and Done.
+
+🔍 Deep Search: Instantly find any task by searching across titles, notes, tags, and saved website links.
+
+🔒 100% PRIVATE & SECURE
+Your data belongs to you. QuickTask operates with strict privacy standards:
+
+• No Analytics: We do not track your clicks, tasks, or browsing history.
+• No External Servers: Everything is stored locally on your device by default.
+• Optional Sync: Securely sync your tasks across all your devices using Chrome's built-in encrypted sync (requires manual opt-in).
+• Full Export: Easily backup or move your data anytime with one-click JSON export and import.
+
+🌍 AVAILABLE GLOBALLY
+Fully translated into English, Spanish (es), French (fr), German (de), Japanese (ja), and Simplified Chinese (zh_CN).
 
 Tip for Windows: chrome://settings/system → enable “Continue running background apps when Google Chrome is closed” so reminders can fire when all windows are closed.
 ```

@@ -1,18 +1,18 @@
 {
   "extName": {
-    "message": "Todo Reminder",
+    "message": "QuickTask - Lista de tareas y recordatorios",
     "description": "Extension name"
   },
   "extDescription": {
-    "message": "Añade todos rápido, guarda páginas, recordatorios, sincronización y atajos",
+    "message": "La lista de tareas offline más rápida. Recordatorios diarios, organiza checklists y guarda sitios web como tareas en un clic.",
     "description": "Extension description in Chrome Web Store"
   },
   "actionTitle": {
-    "message": "Todo Reminder",
+    "message": "QuickTask",
     "description": "Toolbar tooltip"
   },
   "commandQuickAdd": {
-    "message": "Abrir añadido rápido de Todo Reminder",
+    "message": "Abrir añadido rápido de QuickTask",
     "description": "Keyboard command description"
   },
   "viewAll": {
@@ -301,7 +301,7 @@
     }
   },
   "optionsTitle": {
-    "message": "Ajustes de Todo Reminder"
+    "message": "Ajustes de QuickTask"
   },
   "optionsSubtitle": {
     "message": "Recordatorios, sincronización, guardar páginas y atajos."
@@ -367,7 +367,7 @@
     "message": "Atajo de teclado"
   },
   "shortcutDefault": {
-    "message": "Predeterminado: Alt + Mayús + T abre el popup de Todo Reminder."
+    "message": "Predeterminado: Alt + Mayús + T abre el popup de QuickTask."
   },
   "shortcutHint": {
     "message": "Cámbialo en chrome://extensions/shortcuts."

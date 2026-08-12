@@ -1,18 +1,18 @@
 {
   "extName": {
-    "message": "Todo Reminder",
+    "message": "QuickTask - To Do List, Tasks & Reminders",
     "description": "Extension name"
   },
   "extDescription": {
-    "message": "Quick-add todos, save pages, reminders, sync, and keyboard shortcuts",
+    "message": "The fastest offline to-do list and task manager. Set daily reminders, organize checklists, and save websites as tasks in one click.",
     "description": "Extension description in Chrome Web Store"
   },
   "actionTitle": {
-    "message": "Todo Reminder",
+    "message": "QuickTask",
     "description": "Toolbar tooltip"
   },
   "commandQuickAdd": {
-    "message": "Open Todo Reminder quick add",
+    "message": "Open QuickTask quick add",
     "description": "Keyboard command description"
   },
   "viewAll": {
@@ -301,7 +301,7 @@
     }
   },
   "optionsTitle": {
-    "message": "Todo Reminder settings"
+    "message": "QuickTask settings"
   },
   "optionsSubtitle": {
     "message": "Reminders, sync, save pages, and shortcuts."
@@ -367,7 +367,7 @@
     "message": "Keyboard shortcut"
   },
   "shortcutDefault": {
-    "message": "Default: Alt + Shift + T opens the Todo Reminder popup."
+    "message": "Default: Alt + Shift + T opens the QuickTask popup."
   },
   "shortcutHint": {
     "message": "Change it in chrome://extensions/shortcuts."

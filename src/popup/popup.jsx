@@ -838,7 +838,7 @@ const App = () => {
     const url = URL.createObjectURL(blob);
     const anchor = document.createElement("a");
     anchor.href = url;
-    anchor.download = `todo-reminder-backup-${new Date()
+    anchor.download = `quicktask-backup-${new Date()
       .toISOString()
       .slice(0, 10)}.json`;
     anchor.click();
@@ -871,7 +871,7 @@ const App = () => {
           <img className="brand-mark" src="icon-48.png" alt="" width="34" height="34" aria-hidden="true" />
           <div>
             <p className="eyebrow">{todayLabel}</p>
-            <h1>{t("extName")}</h1>
+            <h1>{t("actionTitle")}</h1>
           </div>
           {screen === "list" ? (
             <div className="header-actions">

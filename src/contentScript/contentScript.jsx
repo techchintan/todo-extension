@@ -7,7 +7,7 @@ const App = () => {
 };
 
 const host = document.createElement("div");
-host.id = "todo-reminder-root";
+host.id = "quicktask-root";
 document.documentElement.appendChild(host);
 const root = createRoot(host);
 root.render(<App />);

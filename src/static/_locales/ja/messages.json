@@ -1,18 +1,18 @@
 {
   "extName": {
-    "message": "Todo Reminder",
+    "message": "QuickTask - To Doリスト、タスクとリマインダー",
     "description": "Extension name"
   },
   "extDescription": {
-    "message": "Todoのクイック追加、ページ保存、リマインダー、同期、キーボードショートカット",
+    "message": "最速のオフラインTo Doリスト＆タスク管理。毎日のリマインダー、チェックリスト整理、ウェブサイトをワンクリックでタスク保存。",
     "description": "Extension description in Chrome Web Store"
   },
   "actionTitle": {
-    "message": "Todo Reminder",
+    "message": "QuickTask",
     "description": "Toolbar tooltip"
   },
   "commandQuickAdd": {
-    "message": "Todo Reminderのクイック追加を開く",
+    "message": "QuickTaskのクイック追加を開く",
     "description": "Keyboard command description"
   },
   "viewAll": {
@@ -301,7 +301,7 @@
     }
   },
   "optionsTitle": {
-    "message": "Todo Reminder設定"
+    "message": "QuickTask設定"
   },
   "optionsSubtitle": {
     "message": "リマインダー、同期、ページ保存、ショートカット。"
@@ -367,7 +367,7 @@
     "message": "キーボードショートカット"
   },
   "shortcutDefault": {
-    "message": "デフォルト: Alt + Shift + T でTodo Reminderポップアップを開きます。"
+    "message": "デフォルト: Alt + Shift + T でQuickTaskポップアップを開きます。"
   },
   "shortcutHint": {
     "message": "chrome://extensions/shortcuts で変更できます。"
