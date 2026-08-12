@@ -422,7 +422,7 @@ const App = () => {
     <div className="app">
       <header className="header">
         <div className="brand-row">
-          <div className="brand-mark" aria-hidden="true" />
+          <img className="brand-mark" src="icon.png" alt="" width="34" height="34" aria-hidden="true" />
           <div>
             <p className="eyebrow">{todayLabel}</p>
             <h1>Todo Reminder</h1>

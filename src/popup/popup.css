@@ -12,9 +12,13 @@
   --danger: #e11d48;
   --danger-deep: #be123c;
   --p1: #e11d48;
-  --p2: #929aab;
-  --p3: #393e46;
+  --p2: #ea580c;
+  --p3: #2563eb;
   --p4: #929aab;
+  --p1-soft: #ffe4e6;
+  --p2-soft: #ffedd5;
+  --p3-soft: #dbeafe;
+  --p4-soft: #eeeeee;
   --display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
   --sans: Candara, "Segoe UI", Calibri, sans-serif;
   --btn-radius: 4px;
@@ -129,7 +133,7 @@ body {
 .status.banner {
   margin: 0 0 10px;
   padding: 8px 10px;
-  border-radius: 8px;
+  border-radius: var(--btn-radius);
   background: var(--accent-soft);
 }
 
@@ -140,7 +144,7 @@ body {
 .search-input {
   width: 100%;
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: var(--btn-radius);
   padding: 8px 12px;
   font: inherit;
   font-size: 13px;
@@ -169,8 +173,9 @@ body {
 .brand-mark {
   width: 34px;
   height: 34px;
-  border-radius: 10px;
-  background: var(--accent);
+  border-radius: var(--btn-radius);
+  object-fit: cover;
+  flex-shrink: 0;
 }
 
 .eyebrow {
@@ -250,7 +255,7 @@ body {
   margin-bottom: 0;
   padding: 12px;
   border: 1px solid var(--line);
-  border-radius: 14px;
+  border-radius: var(--btn-radius);
   background: var(--panel);
 }
 
@@ -290,7 +295,7 @@ body {
   flex: 1;
   min-width: 0;
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: var(--btn-radius);
   padding: 10px 12px;
   font: inherit;
   font-size: 14px;
@@ -328,23 +333,35 @@ body {
 
 .priority.p1 {
   color: var(--p1);
-  background: #ffe4e6;
+  background: var(--p1-soft);
 }
 .priority.p2 {
-  color: var(--muted);
-  background: var(--surface-tint);
+  color: var(--p2);
+  background: var(--p2-soft);
 }
 .priority.p3 {
   color: var(--p3);
-  background: var(--accent-soft);
+  background: var(--p3-soft);
 }
 .priority.p4 {
   color: var(--p4);
-  background: #e2e8f0;
+  background: var(--p4-soft);
 }
 
-.priority.active {
-  background: var(--muted);
+.priority.p1.active {
+  background: var(--p1);
+  color: #fff;
+}
+.priority.p2.active {
+  background: var(--p2);
+  color: #fff;
+}
+.priority.p3.active {
+  background: var(--p3);
+  color: #fff;
+}
+.priority.p4.active {
+  background: var(--p4);
   color: #fff;
 }
 
@@ -385,7 +402,7 @@ body {
 .form select {
   width: 100%;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius:var(--btn-radius);
   padding: 8px 10px;
   font: inherit;
   font-weight: 400;
@@ -536,7 +553,7 @@ body {
 .empty-card {
   padding: 16px;
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: var(--btn-radius);
   background: #fff;
   text-align: center;
 }
@@ -590,8 +607,22 @@ body {
   padding: 10px;
   background: #fff;
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-left: 3px solid var(--p4);
+  border-radius: var(--btn-radius);
   box-shadow: none;
+}
+
+.todo-item.p1 {
+  border-left-color: var(--p1);
+}
+.todo-item.p2 {
+  border-left-color: var(--p2);
+}
+.todo-item.p3 {
+  border-left-color: var(--p3);
+}
+.todo-item.p4 {
+  border-left-color: var(--p4);
 }
 
 .todo-item.completed {
@@ -645,7 +676,7 @@ body {
 .due-tag {
   font-size: 11px;
   font-weight: 700;
-  border-radius: 6px;
+  border-radius: var(--btn-radius);
   padding: 2px 6px;
   background: var(--surface-tint);
   color: var(--muted);
@@ -653,15 +684,19 @@ body {
 
 .priority-tag.p1 {
   color: var(--p1);
-  background: #ffe4e6;
+  background: var(--p1-soft);
 }
 .priority-tag.p2 {
-  color: var(--muted);
-  background: var(--surface-tint);
+  color: var(--p2);
+  background: var(--p2-soft);
 }
 .priority-tag.p3 {
   color: var(--p3);
-  background: var(--accent-soft);
+  background: var(--p3-soft);
+}
+.priority-tag.p4 {
+  color: var(--p4);
+  background: var(--p4-soft);
 }
 
 .due-tag.overdue {
