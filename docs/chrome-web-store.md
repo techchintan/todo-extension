@@ -69,7 +69,7 @@ Tip for Windows: chrome://settings/system → enable “Continue running backgro
 | --- | --- |
 | Store icon | Upload `src/static/icon-128.png` (128×128; larger is fine if you add one later) |
 | Screenshots | At least 1 image, **1280×800** or **640×400** (PNG/JPEG). Capture the popup list, add-todo form, and options/sync page from a loaded `dist` build. |
-| Small promo (optional) | 440×280 |
+| Small promo (optional) | 440×280 — `docs/store-assets/promo-small-440x280.png` |
 | Marquee (optional) | 1400×560 |
 
 Do **not** claim an on-page floating button/FAB — that feature is not in the shipping build.
