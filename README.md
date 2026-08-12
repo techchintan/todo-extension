@@ -24,9 +24,11 @@ Chrome extension for managing a todo list with system notifications when a due d
 ## Chrome Web Store
 
 1. Replace the contact email in [`docs/privacy-policy.html`](docs/privacy-policy.html) and host that file on a public HTTPS URL
-2. `npm run package` — production build + `todo-reminder-<version>.zip` at the repo root
+2. `npm run package` — bumps the patch version, production build, then `todo-reminder-<version>.zip` at the repo root
 3. Upload the zip in the [Chrome Web Store Developer Dashboard](https://chrome.google.com/webstore/devconsole)
 4. Follow the listing copy, privacy answers, and checklist in [`docs/chrome-web-store.md`](docs/chrome-web-store.md)
+
+Use `npm run bump` alone if you only need to bump version without packaging.
 
 ## Web clipping
 

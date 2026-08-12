@@ -84,7 +84,7 @@ async function handleAlarm(alarm) {
 
     const startNotification = {
       type: "basic",
-      iconUrl: "icon.png",
+      iconUrl: "icon-128.png",
       title: t("notifStarting"),
       message: todo.title,
       contextMessage: todo.description || todo.url || undefined,
@@ -122,7 +122,7 @@ async function handleAlarm(alarm) {
 
   const dueNotification = {
     type: "basic",
-    iconUrl: "icon.png",
+    iconUrl: "icon-128.png",
     title: t("notifDue"),
     message: todo.title,
     contextMessage: todo.description || todo.url || undefined,

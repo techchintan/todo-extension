@@ -53,7 +53,7 @@ Tip for Windows: chrome://settings/system → enable “Continue running backgro
 
 | Asset | Spec |
 | --- | --- |
-| Store icon | Upload `src/static/icon.png` (1024×1024) or at least 128×128 |
+| Store icon | Upload `src/static/icon-128.png` (128×128; larger is fine if you add one later) |
 | Screenshots | At least 1 image, **1280×800** or **640×400** (PNG/JPEG). Capture the popup list, add-todo form, and options/sync page from a loaded `dist` build. |
 | Small promo (optional) | 440×280 |
 | Marquee (optional) | 1400×560 |
@@ -93,4 +93,4 @@ No host permissions are requested.
 5. Fill listing fields from this doc; upload screenshots and store icon.
 6. Complete **Privacy practices**: justifications, data disclosures, privacy policy URL.
 7. Set distribution (public / unlisted) and submit for review.
-8. After approval, keep version bumps in `src/static/manifest.json` and `package.json` in sync, then `npm run package` for updates.
+8. After approval, run `npm run package` again for updates (it bumps the patch version, then rebuilds the zip).

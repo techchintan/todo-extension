@@ -32,7 +32,7 @@ const App = () => {
   return (
     <div className="options">
       <header>
-        <img src="icon.png" alt="" width="40" height="40" />
+        <img src="icon-128.png" alt="" width="40" height="40" />
         <div>
           <h1>{t("optionsTitle")}</h1>
           <p>{t("optionsSubtitle")}</p>
