@@ -1,0 +1,384 @@
+{
+  "extName": {
+    "message": "Todo Reminder",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "Todoのクイック追加、ページ保存、リマインダー、同期、キーボードショートカット",
+    "description": "Extension description in Chrome Web Store"
+  },
+  "actionTitle": {
+    "message": "Todo Reminder",
+    "description": "Toolbar tooltip"
+  },
+  "commandQuickAdd": {
+    "message": "Todo Reminderのクイック追加を開く",
+    "description": "Keyboard command description"
+  },
+  "viewAll": {
+    "message": "すべて"
+  },
+  "viewToday": {
+    "message": "今日"
+  },
+  "viewUpcoming": {
+    "message": "今後"
+  },
+  "viewInbox": {
+    "message": "受信箱"
+  },
+  "viewDone": {
+    "message": "完了"
+  },
+  "export": {
+    "message": "エクスポート"
+  },
+  "import": {
+    "message": "インポート"
+  },
+  "settings": {
+    "message": "設定"
+  },
+  "edit": {
+    "message": "編集"
+  },
+  "delete": {
+    "message": "削除"
+  },
+  "close": {
+    "message": "閉じる"
+  },
+  "save": {
+    "message": "保存"
+  },
+  "clearAll": {
+    "message": "すべて消去"
+  },
+  "loading": {
+    "message": "読み込み中…"
+  },
+  "savePage": {
+    "message": "ページを保存"
+  },
+  "newTodo": {
+    "message": "新しいTodo"
+  },
+  "editTodo": {
+    "message": "Todoを編集"
+  },
+  "searchPlaceholder": {
+    "message": "Todo、タグ、リンクを検索…"
+  },
+  "searchAria": {
+    "message": "Todoを検索"
+  },
+  "viewsAria": {
+    "message": "Todoビュー"
+  },
+  "priorityAria": {
+    "message": "優先度"
+  },
+  "emptyTitle": {
+    "message": "まだ何もありません"
+  },
+  "emptySearch": {
+    "message": "この検索に一致するものがありません。"
+  },
+  "emptyHint": {
+    "message": "「新しいTodo」をタップして最初のタスクを作成してください。"
+  },
+  "titleLabel": {
+    "message": "タイトル"
+  },
+  "titlePlaceholder": {
+    "message": "何をする必要がありますか？"
+  },
+  "notes": {
+    "message": "メモ"
+  },
+  "notesPlaceholder": {
+    "message": "任意のメモ"
+  },
+  "tags": {
+    "message": "タグ"
+  },
+  "tagsPlaceholder": {
+    "message": "仕事, 個人"
+  },
+  "repeat": {
+    "message": "繰り返し"
+  },
+  "repeatNone": {
+    "message": "繰り返さない"
+  },
+  "repeatDaily": {
+    "message": "毎日"
+  },
+  "repeatWeekly": {
+    "message": "毎週"
+  },
+  "reminder": {
+    "message": "リマインダー"
+  },
+  "reminderHint": {
+    "message": "任意 — この時刻に通知を受け取ります。"
+  },
+  "link": {
+    "message": "リンク"
+  },
+  "linkPlaceholder": {
+    "message": "https://"
+  },
+  "titleRequired": {
+    "message": "タイトルは必須です。"
+  },
+  "reminderInvalid": {
+    "message": "リマインダーの日時が無効です。"
+  },
+  "todoUpdated": {
+    "message": "Todoを更新しました。"
+  },
+  "todoSaved": {
+    "message": "Todoを保存しました。"
+  },
+  "pageCantSave": {
+    "message": "このページはTodoとして保存できません。"
+  },
+  "untitledPage": {
+    "message": "無題のページ"
+  },
+  "pageAddedInbox": {
+    "message": "ページを受信箱に追加しました。"
+  },
+  "couldNotReadTab": {
+    "message": "現在のタブを読み取れませんでした。"
+  },
+  "clearedCompleted": {
+    "message": "完了したTodoを消去しました。"
+  },
+  "exportedBackup": {
+    "message": "バックアップをエクスポートしました。"
+  },
+  "importedTodos": {
+    "message": "$COUNT$ 件のTodoをインポートしました。",
+    "placeholders": {
+      "COUNT": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "importFailed": {
+    "message": "そのファイルをインポートできませんでした。"
+  },
+  "noStartTime": {
+    "message": "開始時刻なし"
+  },
+  "noDueDate": {
+    "message": "期限なし"
+  },
+  "labelStarts": {
+    "message": "開始"
+  },
+  "labelDue": {
+    "message": "期限"
+  },
+  "labelStartWas": {
+    "message": "開始済み"
+  },
+  "labelOverdue": {
+    "message": "期限切れ"
+  },
+  "relativeAgoMins": {
+    "message": "$LABEL$ · $COUNT$分前",
+    "placeholders": {
+      "LABEL": {
+        "content": "$1",
+        "example": "Overdue"
+      },
+      "COUNT": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "relativeAgoHours": {
+    "message": "$LABEL$ · $COUNT$時間前",
+    "placeholders": {
+      "LABEL": {
+        "content": "$1",
+        "example": "Overdue"
+      },
+      "COUNT": {
+        "content": "$2",
+        "example": "2"
+      }
+    }
+  },
+  "relativeAgoDays": {
+    "message": "$LABEL$ · $COUNT$日前",
+    "placeholders": {
+      "LABEL": {
+        "content": "$1",
+        "example": "Overdue"
+      },
+      "COUNT": {
+        "content": "$2",
+        "example": "3"
+      }
+    }
+  },
+  "relativeInMins": {
+    "message": "$LABEL$ あと$COUNT$分",
+    "placeholders": {
+      "LABEL": {
+        "content": "$1",
+        "example": "Due"
+      },
+      "COUNT": {
+        "content": "$2",
+        "example": "10"
+      }
+    }
+  },
+  "relativeInHours": {
+    "message": "$LABEL$ あと$COUNT$時間",
+    "placeholders": {
+      "LABEL": {
+        "content": "$1",
+        "example": "Due"
+      },
+      "COUNT": {
+        "content": "$2",
+        "example": "3"
+      }
+    }
+  },
+  "relativeTomorrow": {
+    "message": "$LABEL$ 明日",
+    "placeholders": {
+      "LABEL": {
+        "content": "$1",
+        "example": "Due"
+      }
+    }
+  },
+  "relativeAt": {
+    "message": "$LABEL$ $DATETIME$",
+    "placeholders": {
+      "LABEL": {
+        "content": "$1",
+        "example": "Due"
+      },
+      "DATETIME": {
+        "content": "$2",
+        "example": "Mar 12, 3:00 PM"
+      }
+    }
+  },
+  "notifStarting": {
+    "message": "Todo開始"
+  },
+  "notifDue": {
+    "message": "Todo期限"
+  },
+  "notifComplete": {
+    "message": "完了"
+  },
+  "menuAddPage": {
+    "message": "ページをTodoに追加"
+  },
+  "menuAddSelection": {
+    "message": "選択範囲をTodoに追加"
+  },
+  "fromPage": {
+    "message": "元: $TITLE$",
+    "placeholders": {
+      "TITLE": {
+        "content": "$1",
+        "example": "Example"
+      }
+    }
+  },
+  "optionsTitle": {
+    "message": "Todo Reminder設定"
+  },
+  "optionsSubtitle": {
+    "message": "リマインダー、同期、ページ保存、ショートカット。"
+  },
+  "chromeSync": {
+    "message": "Chrome同期"
+  },
+  "syncToggle": {
+    "message": "Chromeブラウザ間でTodoを同期"
+  },
+  "syncHint": {
+    "message": "Googleアカウントのchrome.storage.syncを使用します。大きなリストは同期サイズ制限に達する場合があります — ポップアップのエクスポート / インポートをバックアップに使ってください。"
+  },
+  "syncOnStatus": {
+    "message": "Chrome同期オン — TodoはGoogleアカウントと同期されます（サイズ制限あり）。"
+  },
+  "syncOffStatus": {
+    "message": "Chrome同期オフ — Todoはこの端末のみに保存されます。"
+  },
+  "saveSettingsFailed": {
+    "message": "設定を保存できませんでした。"
+  },
+  "remindersTitle": {
+    "message": "リマインダー"
+  },
+  "remindersIntro": {
+    "message": "各Todoに任意のリマインダー時刻を設定できます。その時刻にChromeが通知を表示します。"
+  },
+  "remindersOneTime": {
+    "message": "一回限りのTodoは、リマインダー発火時に自動で完了になります。"
+  },
+  "remindersRecurring": {
+    "message": "毎日 / 毎週のTodoは開いたままです。通知に完了ボタンがあり（Chromeが対応する場合）、次の発生に進みます。"
+  },
+  "remindersClickHint": {
+    "message": "通知をクリックすると拡張機能のポップアップが開きます。"
+  },
+  "saveFromWebTitle": {
+    "message": "ウェブから保存"
+  },
+  "saveFromWebSavePage": {
+    "message": "ポップアップの「ページを保存」で現在のタブを受信箱に追加します。"
+  },
+  "saveFromWebAddPage": {
+    "message": "ページを右クリック → ページをTodoに追加。"
+  },
+  "saveFromWebAddSelection": {
+    "message": "テキストを選択 → 右クリック → 選択範囲をTodoに追加。"
+  },
+  "organizeTitle": {
+    "message": "ポップアップで整理"
+  },
+  "organizeViews": {
+    "message": "ビュー: すべて、今日、今後、受信箱、完了"
+  },
+  "organizePriorities": {
+    "message": "優先度P1–P4、タグ、メモ、検索"
+  },
+  "organizeRepeat": {
+    "message": "繰り返し: なし、毎日、または毎週"
+  },
+  "shortcutTitle": {
+    "message": "キーボードショートカット"
+  },
+  "shortcutDefault": {
+    "message": "デフォルト: Alt + Shift + T でTodo Reminderポップアップを開きます。"
+  },
+  "shortcutHint": {
+    "message": "chrome://extensions/shortcuts で変更できます。"
+  },
+  "backupTitle": {
+    "message": "バックアップ"
+  },
+  "backupBody": {
+    "message": "ポップアップヘッダーのエクスポートとインポートアイコンで、TodoのJSONバックアップをダウンロードまたは復元できます。"
+  },
+  "backupHint": {
+    "message": "同期をオンにする前、または別のパソコンへ移るときに推奨します。"
+  }
+}

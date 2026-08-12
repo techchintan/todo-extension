@@ -1,0 +1,384 @@
+{
+  "extName": {
+    "message": "Todo Reminder",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "快速添加待办、保存页面、提醒、同步与键盘快捷键",
+    "description": "Extension description in Chrome Web Store"
+  },
+  "actionTitle": {
+    "message": "Todo Reminder",
+    "description": "Toolbar tooltip"
+  },
+  "commandQuickAdd": {
+    "message": "打开 Todo Reminder 快速添加",
+    "description": "Keyboard command description"
+  },
+  "viewAll": {
+    "message": "全部"
+  },
+  "viewToday": {
+    "message": "今天"
+  },
+  "viewUpcoming": {
+    "message": "即将到期"
+  },
+  "viewInbox": {
+    "message": "收件箱"
+  },
+  "viewDone": {
+    "message": "已完成"
+  },
+  "export": {
+    "message": "导出"
+  },
+  "import": {
+    "message": "导入"
+  },
+  "settings": {
+    "message": "设置"
+  },
+  "edit": {
+    "message": "编辑"
+  },
+  "delete": {
+    "message": "删除"
+  },
+  "close": {
+    "message": "关闭"
+  },
+  "save": {
+    "message": "保存"
+  },
+  "clearAll": {
+    "message": "全部清除"
+  },
+  "loading": {
+    "message": "加载中…"
+  },
+  "savePage": {
+    "message": "保存页面"
+  },
+  "newTodo": {
+    "message": "新建待办"
+  },
+  "editTodo": {
+    "message": "编辑待办"
+  },
+  "searchPlaceholder": {
+    "message": "搜索待办、标签、链接…"
+  },
+  "searchAria": {
+    "message": "搜索待办"
+  },
+  "viewsAria": {
+    "message": "待办视图"
+  },
+  "priorityAria": {
+    "message": "优先级"
+  },
+  "emptyTitle": {
+    "message": "这里还没有内容"
+  },
+  "emptySearch": {
+    "message": "没有匹配此搜索的结果。"
+  },
+  "emptyHint": {
+    "message": "点按“新建待办”创建第一个任务。"
+  },
+  "titleLabel": {
+    "message": "标题"
+  },
+  "titlePlaceholder": {
+    "message": "需要做什么？"
+  },
+  "notes": {
+    "message": "备注"
+  },
+  "notesPlaceholder": {
+    "message": "可选备注"
+  },
+  "tags": {
+    "message": "标签"
+  },
+  "tagsPlaceholder": {
+    "message": "工作, 个人"
+  },
+  "repeat": {
+    "message": "重复"
+  },
+  "repeatNone": {
+    "message": "不重复"
+  },
+  "repeatDaily": {
+    "message": "每天"
+  },
+  "repeatWeekly": {
+    "message": "每周"
+  },
+  "reminder": {
+    "message": "提醒"
+  },
+  "reminderHint": {
+    "message": "可选 — 在此时间收到通知。"
+  },
+  "link": {
+    "message": "链接"
+  },
+  "linkPlaceholder": {
+    "message": "https://"
+  },
+  "titleRequired": {
+    "message": "标题为必填项。"
+  },
+  "reminderInvalid": {
+    "message": "提醒日期和时间无效。"
+  },
+  "todoUpdated": {
+    "message": "待办已更新。"
+  },
+  "todoSaved": {
+    "message": "待办已保存。"
+  },
+  "pageCantSave": {
+    "message": "此页面无法保存为待办。"
+  },
+  "untitledPage": {
+    "message": "无标题页面"
+  },
+  "pageAddedInbox": {
+    "message": "页面已添加到收件箱。"
+  },
+  "couldNotReadTab": {
+    "message": "无法读取当前标签页。"
+  },
+  "clearedCompleted": {
+    "message": "已清除完成的待办。"
+  },
+  "exportedBackup": {
+    "message": "已导出备份。"
+  },
+  "importedTodos": {
+    "message": "已导入 $COUNT$ 个待办。",
+    "placeholders": {
+      "COUNT": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "importFailed": {
+    "message": "无法导入该文件。"
+  },
+  "noStartTime": {
+    "message": "无开始时间"
+  },
+  "noDueDate": {
+    "message": "无截止日期"
+  },
+  "labelStarts": {
+    "message": "开始"
+  },
+  "labelDue": {
+    "message": "截止"
+  },
+  "labelStartWas": {
+    "message": "已开始"
+  },
+  "labelOverdue": {
+    "message": "已逾期"
+  },
+  "relativeAgoMins": {
+    "message": "$LABEL$ · $COUNT$ 分钟前",
+    "placeholders": {
+      "LABEL": {
+        "content": "$1",
+        "example": "Overdue"
+      },
+      "COUNT": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "relativeAgoHours": {
+    "message": "$LABEL$ · $COUNT$ 小时前",
+    "placeholders": {
+      "LABEL": {
+        "content": "$1",
+        "example": "Overdue"
+      },
+      "COUNT": {
+        "content": "$2",
+        "example": "2"
+      }
+    }
+  },
+  "relativeAgoDays": {
+    "message": "$LABEL$ · $COUNT$ 天前",
+    "placeholders": {
+      "LABEL": {
+        "content": "$1",
+        "example": "Overdue"
+      },
+      "COUNT": {
+        "content": "$2",
+        "example": "3"
+      }
+    }
+  },
+  "relativeInMins": {
+    "message": "$LABEL$ $COUNT$ 分钟后",
+    "placeholders": {
+      "LABEL": {
+        "content": "$1",
+        "example": "Due"
+      },
+      "COUNT": {
+        "content": "$2",
+        "example": "10"
+      }
+    }
+  },
+  "relativeInHours": {
+    "message": "$LABEL$ $COUNT$ 小时后",
+    "placeholders": {
+      "LABEL": {
+        "content": "$1",
+        "example": "Due"
+      },
+      "COUNT": {
+        "content": "$2",
+        "example": "3"
+      }
+    }
+  },
+  "relativeTomorrow": {
+    "message": "$LABEL$ 明天",
+    "placeholders": {
+      "LABEL": {
+        "content": "$1",
+        "example": "Due"
+      }
+    }
+  },
+  "relativeAt": {
+    "message": "$LABEL$ $DATETIME$",
+    "placeholders": {
+      "LABEL": {
+        "content": "$1",
+        "example": "Due"
+      },
+      "DATETIME": {
+        "content": "$2",
+        "example": "Mar 12, 3:00 PM"
+      }
+    }
+  },
+  "notifStarting": {
+    "message": "待办开始"
+  },
+  "notifDue": {
+    "message": "待办到期"
+  },
+  "notifComplete": {
+    "message": "完成"
+  },
+  "menuAddPage": {
+    "message": "将页面添加为待办"
+  },
+  "menuAddSelection": {
+    "message": "将选中内容添加为待办"
+  },
+  "fromPage": {
+    "message": "来自：$TITLE$",
+    "placeholders": {
+      "TITLE": {
+        "content": "$1",
+        "example": "Example"
+      }
+    }
+  },
+  "optionsTitle": {
+    "message": "Todo Reminder 设置"
+  },
+  "optionsSubtitle": {
+    "message": "提醒、同步、保存页面与快捷键。"
+  },
+  "chromeSync": {
+    "message": "Chrome 同步"
+  },
+  "syncToggle": {
+    "message": "在我的 Chrome 浏览器之间同步待办"
+  },
+  "syncHint": {
+    "message": "使用与您的 Google 账号关联的 chrome.storage.sync。较大列表可能触及同步大小限制 — 请在弹窗中使用导出 / 导入作为备份。"
+  },
+  "syncOnStatus": {
+    "message": "Chrome 同步已开启 — 待办会与您的 Google 账号同步（有大小限制）。"
+  },
+  "syncOffStatus": {
+    "message": "Chrome 同步已关闭 — 待办仅保存在此设备。"
+  },
+  "saveSettingsFailed": {
+    "message": "无法保存设置。"
+  },
+  "remindersTitle": {
+    "message": "提醒"
+  },
+  "remindersIntro": {
+    "message": "每个待办可以有一个可选提醒时间。到时 Chrome 会显示通知。"
+  },
+  "remindersOneTime": {
+    "message": "一次性待办在提醒触发时会自动标记为已完成。"
+  },
+  "remindersRecurring": {
+    "message": "每天 / 每周待办保持未完成。通知包含“完成”按钮（在 Chrome 支持时）以推进到下一次。"
+  },
+  "remindersClickHint": {
+    "message": "点击通知可打开扩展弹窗。"
+  },
+  "saveFromWebTitle": {
+    "message": "从网页保存"
+  },
+  "saveFromWebSavePage": {
+    "message": "在弹窗中使用“保存页面”将当前标签页添加到收件箱。"
+  },
+  "saveFromWebAddPage": {
+    "message": "右键点击页面 → 将页面添加为待办。"
+  },
+  "saveFromWebAddSelection": {
+    "message": "选中文本 → 右键 → 将选中内容添加为待办。"
+  },
+  "organizeTitle": {
+    "message": "在弹窗中整理"
+  },
+  "organizeViews": {
+    "message": "视图：全部、今天、即将到期、收件箱、已完成"
+  },
+  "organizePriorities": {
+    "message": "优先级 P1–P4、标签、备注与搜索"
+  },
+  "organizeRepeat": {
+    "message": "重复：无、每天或每周"
+  },
+  "shortcutTitle": {
+    "message": "键盘快捷键"
+  },
+  "shortcutDefault": {
+    "message": "默认：Alt + Shift + T 打开 Todo Reminder 弹窗。"
+  },
+  "shortcutHint": {
+    "message": "可在 chrome://extensions/shortcuts 中更改。"
+  },
+  "backupTitle": {
+    "message": "备份"
+  },
+  "backupBody": {
+    "message": "使用弹窗标题栏中的导出和导入图标下载或恢复待办的 JSON 备份。"
+  },
+  "backupHint": {
+    "message": "建议在开启同步前，或迁移到另一台电脑时使用。"
+  }
+}

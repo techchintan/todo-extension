@@ -1,0 +1,384 @@
+{
+  "extName": {
+    "message": "Todo Reminder",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "Быстрое добавление дел, сохранение страниц, напоминания, синхронизация и горячие клавиши",
+    "description": "Extension description in Chrome Web Store"
+  },
+  "actionTitle": {
+    "message": "Todo Reminder",
+    "description": "Toolbar tooltip"
+  },
+  "commandQuickAdd": {
+    "message": "Открыть быстрое добавление Todo Reminder",
+    "description": "Keyboard command description"
+  },
+  "viewAll": {
+    "message": "Все"
+  },
+  "viewToday": {
+    "message": "Сегодня"
+  },
+  "viewUpcoming": {
+    "message": "Предстоящие"
+  },
+  "viewInbox": {
+    "message": "Входящие"
+  },
+  "viewDone": {
+    "message": "Готово"
+  },
+  "export": {
+    "message": "Экспорт"
+  },
+  "import": {
+    "message": "Импорт"
+  },
+  "settings": {
+    "message": "Настройки"
+  },
+  "edit": {
+    "message": "Изменить"
+  },
+  "delete": {
+    "message": "Удалить"
+  },
+  "close": {
+    "message": "Закрыть"
+  },
+  "save": {
+    "message": "Сохранить"
+  },
+  "clearAll": {
+    "message": "Очистить всё"
+  },
+  "loading": {
+    "message": "Загрузка…"
+  },
+  "savePage": {
+    "message": "Сохранить страницу"
+  },
+  "newTodo": {
+    "message": "Новое дело"
+  },
+  "editTodo": {
+    "message": "Изменить дело"
+  },
+  "searchPlaceholder": {
+    "message": "Поиск дел, тегов, ссылок…"
+  },
+  "searchAria": {
+    "message": "Поиск дел"
+  },
+  "viewsAria": {
+    "message": "Виды дел"
+  },
+  "priorityAria": {
+    "message": "Приоритет"
+  },
+  "emptyTitle": {
+    "message": "Пока пусто"
+  },
+  "emptySearch": {
+    "message": "Нет совпадений для этого поиска."
+  },
+  "emptyHint": {
+    "message": "Нажмите «Новое дело», чтобы создать первую задачу."
+  },
+  "titleLabel": {
+    "message": "Заголовок"
+  },
+  "titlePlaceholder": {
+    "message": "Что нужно сделать?"
+  },
+  "notes": {
+    "message": "Заметки"
+  },
+  "notesPlaceholder": {
+    "message": "Необязательные заметки"
+  },
+  "tags": {
+    "message": "Теги"
+  },
+  "tagsPlaceholder": {
+    "message": "работа, личное"
+  },
+  "repeat": {
+    "message": "Повтор"
+  },
+  "repeatNone": {
+    "message": "Не повторяется"
+  },
+  "repeatDaily": {
+    "message": "Ежедневно"
+  },
+  "repeatWeekly": {
+    "message": "Еженедельно"
+  },
+  "reminder": {
+    "message": "Напоминание"
+  },
+  "reminderHint": {
+    "message": "Необязательно — уведомление в это время."
+  },
+  "link": {
+    "message": "Ссылка"
+  },
+  "linkPlaceholder": {
+    "message": "https://"
+  },
+  "titleRequired": {
+    "message": "Заголовок обязателен."
+  },
+  "reminderInvalid": {
+    "message": "Дата и время напоминания недействительны."
+  },
+  "todoUpdated": {
+    "message": "Дело обновлено."
+  },
+  "todoSaved": {
+    "message": "Дело сохранено."
+  },
+  "pageCantSave": {
+    "message": "Эту страницу нельзя сохранить как дело."
+  },
+  "untitledPage": {
+    "message": "Страница без названия"
+  },
+  "pageAddedInbox": {
+    "message": "Страница добавлена во входящие."
+  },
+  "couldNotReadTab": {
+    "message": "Не удалось прочитать текущую вкладку."
+  },
+  "clearedCompleted": {
+    "message": "Завершённые дела очищены."
+  },
+  "exportedBackup": {
+    "message": "Резервная копия экспортирована."
+  },
+  "importedTodos": {
+    "message": "Импортировано дел: $COUNT$.",
+    "placeholders": {
+      "COUNT": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "importFailed": {
+    "message": "Не удалось импортировать этот файл."
+  },
+  "noStartTime": {
+    "message": "Нет времени начала"
+  },
+  "noDueDate": {
+    "message": "Нет срока"
+  },
+  "labelStarts": {
+    "message": "Начало"
+  },
+  "labelDue": {
+    "message": "Срок"
+  },
+  "labelStartWas": {
+    "message": "Начало было"
+  },
+  "labelOverdue": {
+    "message": "Просрочено"
+  },
+  "relativeAgoMins": {
+    "message": "$LABEL$ · $COUNT$ мин назад",
+    "placeholders": {
+      "LABEL": {
+        "content": "$1",
+        "example": "Overdue"
+      },
+      "COUNT": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "relativeAgoHours": {
+    "message": "$LABEL$ · $COUNT$ ч назад",
+    "placeholders": {
+      "LABEL": {
+        "content": "$1",
+        "example": "Overdue"
+      },
+      "COUNT": {
+        "content": "$2",
+        "example": "2"
+      }
+    }
+  },
+  "relativeAgoDays": {
+    "message": "$LABEL$ · $COUNT$ дн назад",
+    "placeholders": {
+      "LABEL": {
+        "content": "$1",
+        "example": "Overdue"
+      },
+      "COUNT": {
+        "content": "$2",
+        "example": "3"
+      }
+    }
+  },
+  "relativeInMins": {
+    "message": "$LABEL$ через $COUNT$ мин",
+    "placeholders": {
+      "LABEL": {
+        "content": "$1",
+        "example": "Due"
+      },
+      "COUNT": {
+        "content": "$2",
+        "example": "10"
+      }
+    }
+  },
+  "relativeInHours": {
+    "message": "$LABEL$ через $COUNT$ ч",
+    "placeholders": {
+      "LABEL": {
+        "content": "$1",
+        "example": "Due"
+      },
+      "COUNT": {
+        "content": "$2",
+        "example": "3"
+      }
+    }
+  },
+  "relativeTomorrow": {
+    "message": "$LABEL$ завтра",
+    "placeholders": {
+      "LABEL": {
+        "content": "$1",
+        "example": "Due"
+      }
+    }
+  },
+  "relativeAt": {
+    "message": "$LABEL$ $DATETIME$",
+    "placeholders": {
+      "LABEL": {
+        "content": "$1",
+        "example": "Due"
+      },
+      "DATETIME": {
+        "content": "$2",
+        "example": "Mar 12, 3:00 PM"
+      }
+    }
+  },
+  "notifStarting": {
+    "message": "Дело начинается"
+  },
+  "notifDue": {
+    "message": "Дело к сроку"
+  },
+  "notifComplete": {
+    "message": "Готово"
+  },
+  "menuAddPage": {
+    "message": "Добавить страницу как дело"
+  },
+  "menuAddSelection": {
+    "message": "Добавить выделение как дело"
+  },
+  "fromPage": {
+    "message": "Из: $TITLE$",
+    "placeholders": {
+      "TITLE": {
+        "content": "$1",
+        "example": "Example"
+      }
+    }
+  },
+  "optionsTitle": {
+    "message": "Настройки Todo Reminder"
+  },
+  "optionsSubtitle": {
+    "message": "Напоминания, синхронизация, сохранение страниц и горячие клавиши."
+  },
+  "chromeSync": {
+    "message": "Синхронизация Chrome"
+  },
+  "syncToggle": {
+    "message": "Синхронизировать дела в браузерах Chrome"
+  },
+  "syncHint": {
+    "message": "Использует chrome.storage.sync с вашим аккаунтом Google. Большие списки могут превысить лимит синхронизации — используйте Экспорт / Импорт во всплывающем окне как резервную копию."
+  },
+  "syncOnStatus": {
+    "message": "Синхронизация включена — дела синхронизируются с аккаунтом Google (действуют ограничения размера)."
+  },
+  "syncOffStatus": {
+    "message": "Синхронизация выключена — дела только на этом устройстве."
+  },
+  "saveSettingsFailed": {
+    "message": "Не удалось сохранить настройки."
+  },
+  "remindersTitle": {
+    "message": "Напоминания"
+  },
+  "remindersIntro": {
+    "message": "У каждого дела может быть необязательное время напоминания. В это время Chrome показывает уведомление."
+  },
+  "remindersOneTime": {
+    "message": "Одноразовые дела отмечаются как Готово автоматически при срабатывании напоминания."
+  },
+  "remindersRecurring": {
+    "message": "Ежедневные / еженедельные дела остаются открытыми. В уведомлении есть кнопка «Готово» (где Chrome поддерживает), чтобы перейти к следующему повтору."
+  },
+  "remindersClickHint": {
+    "message": "Нажмите на уведомление, чтобы открыть всплывающее окно."
+  },
+  "saveFromWebTitle": {
+    "message": "Сохранить из интернета"
+  },
+  "saveFromWebSavePage": {
+    "message": "Используйте «Сохранить страницу» во всплывающем окне, чтобы добавить текущую вкладку во входящие."
+  },
+  "saveFromWebAddPage": {
+    "message": "Правый клик по странице → Добавить страницу как дело."
+  },
+  "saveFromWebAddSelection": {
+    "message": "Выделите текст → правый клик → Добавить выделение как дело."
+  },
+  "organizeTitle": {
+    "message": "Организация во всплывающем окне"
+  },
+  "organizeViews": {
+    "message": "Виды: Все, Сегодня, Предстоящие, Входящие, Готово"
+  },
+  "organizePriorities": {
+    "message": "Приоритеты P1–P4, теги, заметки и поиск"
+  },
+  "organizeRepeat": {
+    "message": "Повтор: нет, ежедневно или еженедельно"
+  },
+  "shortcutTitle": {
+    "message": "Горячая клавиша"
+  },
+  "shortcutDefault": {
+    "message": "По умолчанию: Alt + Shift + T открывает всплывающее окно Todo Reminder."
+  },
+  "shortcutHint": {
+    "message": "Измените в chrome://extensions/shortcuts."
+  },
+  "backupTitle": {
+    "message": "Резервная копия"
+  },
+  "backupBody": {
+    "message": "Используйте значки Экспорт и Импорт в шапке всплывающего окна, чтобы скачать или восстановить JSON-копию ваших дел."
+  },
+  "backupHint": {
+    "message": "Рекомендуется перед включением синхронизации или при переходе на другой компьютер."
+  }
+}

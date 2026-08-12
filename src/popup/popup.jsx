@@ -12,15 +12,18 @@ import {
   saveTodos,
   sortTodos,
 } from "../shared/todos";
+import { t, uiLocale } from "../shared/i18n";
 import "./popup.css";
 
-const VIEWS = [
-  { id: "all", label: "All" },
-  { id: "today", label: "Today" },
-  { id: "upcoming", label: "Upcoming" },
-  { id: "inbox", label: "Inbox" },
-  { id: "completed", label: "Done" },
-];
+const VIEW_IDS = ["all", "today", "upcoming", "inbox", "completed"];
+
+const VIEW_MESSAGE_KEYS = {
+  all: "viewAll",
+  today: "viewToday",
+  upcoming: "viewUpcoming",
+  inbox: "viewInbox",
+  completed: "viewDone",
+};
 
 const PRIORITIES = [
   { value: 1, label: "P1" },
@@ -28,6 +31,12 @@ const PRIORITIES = [
   { value: 3, label: "P3" },
   { value: 4, label: "P4" },
 ];
+
+const RECURRENCE_LABEL_KEYS = {
+  none: "repeatNone",
+  daily: "repeatDaily",
+  weekly: "repeatWeekly",
+};
 
 function Icon({ children, size = 16 }) {
   return (
@@ -111,7 +120,7 @@ function toDatetimeLocalValue(timestamp) {
 function formatRelativeDue(timestamp, { kind = "due" } = {}) {
   if (!timestamp) {
     return {
-      text: kind === "start" ? "No start time" : "No due date",
+      text: kind === "start" ? t("noStartTime") : t("noDueDate"),
       tone: "muted",
     };
   }
@@ -121,22 +130,51 @@ function formatRelativeDue(timestamp, { kind = "due" } = {}) {
   const mins = Math.round(abs / 60000);
   const hours = Math.round(abs / 3600000);
   const days = Math.round(abs / 86400000);
-  const label = kind === "start" ? "Starts" : "Due";
-  const overdueLabel = kind === "start" ? "Start was" : "Overdue";
+  const label = kind === "start" ? t("labelStarts") : t("labelDue");
+  const overdueLabel =
+    kind === "start" ? t("labelStartWas") : t("labelOverdue");
 
   if (diff < 0) {
-    if (mins < 60) return { text: `${overdueLabel} · ${mins}m ago`, tone: "overdue" };
-    if (hours < 48) return { text: `${overdueLabel} · ${hours}h ago`, tone: "overdue" };
-    return { text: `${overdueLabel} · ${days}d ago`, tone: "overdue" };
+    if (mins < 60) {
+      return {
+        text: t("relativeAgoMins", [overdueLabel, String(mins)]),
+        tone: "overdue",
+      };
+    }
+    if (hours < 48) {
+      return {
+        text: t("relativeAgoHours", [overdueLabel, String(hours)]),
+        tone: "overdue",
+      };
+    }
+    return {
+      text: t("relativeAgoDays", [overdueLabel, String(days)]),
+      tone: "overdue",
+    };
   }
-  if (mins < 60) return { text: `${label} in ${mins}m`, tone: "soon" };
-  if (hours < 24) return { text: `${label} in ${hours}h`, tone: "soon" };
-  if (days === 1) return { text: `${label} tomorrow`, tone: "normal" };
+  if (mins < 60) {
+    return {
+      text: t("relativeInMins", [label, String(mins)]),
+      tone: "soon",
+    };
+  }
+  if (hours < 24) {
+    return {
+      text: t("relativeInHours", [label, String(hours)]),
+      tone: "soon",
+    };
+  }
+  if (days === 1) {
+    return { text: t("relativeTomorrow", [label]), tone: "normal" };
+  }
   return {
-    text: `${label} ${new Date(timestamp).toLocaleString(undefined, {
-      dateStyle: "medium",
-      timeStyle: "short",
-    })}`,
+    text: t("relativeAt", [
+      label,
+      new Date(timestamp).toLocaleString(uiLocale(), {
+        dateStyle: "medium",
+        timeStyle: "short",
+      }),
+    ]),
     tone: "normal",
   };
 }
@@ -173,8 +211,8 @@ const App = () => {
 
   const viewCounts = useMemo(() => {
     const counts = {};
-    VIEWS.forEach((item) => {
-      counts[item.id] = filterTodos(todos, item.id, { query }).length;
+    VIEW_IDS.forEach((id) => {
+      counts[id] = filterTodos(todos, id, { query }).length;
     });
     return counts;
   }, [todos, query]);
@@ -184,7 +222,7 @@ const App = () => {
   );
   const todayLabel = useMemo(
     () =>
-      new Date().toLocaleDateString(undefined, {
+      new Date().toLocaleDateString(uiLocale(), {
         weekday: "long",
         month: "short",
         day: "numeric",
@@ -270,11 +308,11 @@ const App = () => {
       : null;
 
     if (!title) {
-      setError("Title is required.");
+      setError(t("titleRequired"));
       return;
     }
     if (form.reminderAt && Number.isNaN(reminderMs)) {
-      setError("Reminder date and time are invalid.");
+      setError(t("reminderInvalid"));
       return;
     }
 
@@ -316,7 +354,7 @@ const App = () => {
     setEditingId(null);
     setError("");
     setScreen("list");
-    setStatus(wasEditing ? "Todo updated." : "Todo saved.");
+    setStatus(wasEditing ? t("todoUpdated") : t("todoSaved"));
   };
 
   const addCurrentPage = async () => {
@@ -328,18 +366,18 @@ const App = () => {
         currentWindow: true,
       });
       if (!tab?.url || tab.url.startsWith("chrome://")) {
-        setStatus("This page can’t be saved as a todo.");
+        setStatus(t("pageCantSave"));
         return;
       }
       const todo = createTodo({
-        title: (tab.title || "Untitled page").slice(0, 120),
+        title: (tab.title || t("untitledPage")).slice(0, 120),
         url: tab.url,
       });
       await persist([...todos, todo]);
       setView("inbox");
-      setStatus("Page added to Inbox.");
+      setStatus(t("pageAddedInbox"));
     } catch {
-      setStatus("Could not read the current tab.");
+      setStatus(t("couldNotReadTab"));
     }
   };
 
@@ -381,7 +419,7 @@ const App = () => {
 
   const clearCompleted = async () => {
     await persist(todos.filter((todo) => !todo.completed));
-    setStatus("Cleared completed todos.");
+    setStatus(t("clearedCompleted"));
   };
 
   const exportTodos = () => {
@@ -397,7 +435,7 @@ const App = () => {
       .slice(0, 10)}.json`;
     anchor.click();
     URL.revokeObjectURL(url);
-    setStatus("Exported backup.");
+    setStatus(t("exportedBackup"));
   };
 
   const importTodos = async (event) => {
@@ -410,9 +448,9 @@ const App = () => {
       const mergedMap = new Map(todos.map((todo) => [todo.id, todo]));
       imported.forEach((todo) => mergedMap.set(todo.id, todo));
       await persist([...mergedMap.values()]);
-      setStatus(`Imported ${imported.length} todos.`);
+      setStatus(t("importedTodos", String(imported.length)));
     } catch {
-      setError("Could not import that file.");
+      setError(t("importFailed"));
     }
   };
 
@@ -425,7 +463,7 @@ const App = () => {
           <img className="brand-mark" src="icon.png" alt="" width="34" height="34" aria-hidden="true" />
           <div>
             <p className="eyebrow">{todayLabel}</p>
-            <h1>Todo Reminder</h1>
+            <h1>{t("extName")}</h1>
           </div>
           {screen === "list" ? (
             <div className="header-actions">
@@ -433,8 +471,8 @@ const App = () => {
                 type="button"
                 className="icon-btn"
                 onClick={exportTodos}
-                title="Export"
-                aria-label="Export"
+                title={t("export")}
+                aria-label={t("export")}
               >
                 <ExportIcon />
               </button>
@@ -442,8 +480,8 @@ const App = () => {
                 type="button"
                 className="icon-btn"
                 onClick={() => importRef.current?.click()}
-                title="Import"
-                aria-label="Import"
+                title={t("import")}
+                aria-label={t("import")}
               >
                 <ImportIcon />
               </button>
@@ -451,8 +489,8 @@ const App = () => {
                 type="button"
                 className="icon-btn"
                 onClick={() => chrome.runtime.openOptionsPage()}
-                title="Settings"
-                aria-label="Settings"
+                title={t("settings")}
+                aria-label={t("settings")}
               >
                 <SettingsIcon />
               </button>
@@ -478,23 +516,23 @@ const App = () => {
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search todos, tags, links…"
-              aria-label="Search todos"
+              placeholder={t("searchPlaceholder")}
+              aria-label={t("searchAria")}
             />
           </div>
 
-          <div className="view-tabs" role="tablist" aria-label="Todo views">
-            {VIEWS.map((item) => (
+          <div className="view-tabs" role="tablist" aria-label={t("viewsAria")}>
+            {VIEW_IDS.map((id) => (
               <button
-                key={item.id}
+                key={id}
                 type="button"
                 role="tab"
-                aria-selected={view === item.id}
-                className={`view-tab${view === item.id ? " active" : ""}`}
-                onClick={() => setView(item.id)}
+                aria-selected={view === id}
+                className={`view-tab${view === id ? " active" : ""}`}
+                onClick={() => setView(id)}
               >
-                <span>{item.label}</span>
-                <span className="view-count">{viewCounts[item.id] || 0}</span>
+                <span>{t(VIEW_MESSAGE_KEYS[id])}</span>
+                <span className="view-count">{viewCounts[id] || 0}</span>
               </button>
             ))}
           </div>
@@ -507,19 +545,17 @@ const App = () => {
                   className="text-btn"
                   onClick={clearCompleted}
                 >
-                  Clear all
+                  {t("clearAll")}
                 </button>
               </div>
             ) : null}
 
-            {loading ? <p className="muted">Loading…</p> : null}
+            {loading ? <p className="muted">{t("loading")}</p> : null}
             {!loading && visibleTodos.length === 0 ? (
               <div className="empty-card">
-                <p className="empty-title">Nothing here yet</p>
+                <p className="empty-title">{t("emptyTitle")}</p>
                 <p className="empty">
-                  {query
-                    ? "No matches for this search."
-                    : "Tap New todo to create your first task."}
+                  {query ? t("emptySearch") : t("emptyHint")}
                 </p>
               </div>
             ) : null}
@@ -563,7 +599,12 @@ const App = () => {
                           <span className={`due-tag ${due.tone}`}>{due.text}</span>
                         ) : null}
                         {todo.recurrence && todo.recurrence !== "none" ? (
-                          <span className="due-tag">{todo.recurrence}</span>
+                          <span className="due-tag">
+                            {t(
+                              RECURRENCE_LABEL_KEYS[todo.recurrence] ||
+                                "repeatNone"
+                            )}
+                          </span>
                         ) : null}
                         {(todo.tags || []).map((tag) => (
                           <span key={tag} className="tag-mini">
@@ -588,8 +629,8 @@ const App = () => {
                         type="button"
                         className="icon-btn edit"
                         onClick={() => startEdit(todo)}
-                        title="Edit"
-                        aria-label="Edit"
+                        title={t("edit")}
+                        aria-label={t("edit")}
                       >
                         <EditIcon />
                       </button>
@@ -597,8 +638,8 @@ const App = () => {
                         type="button"
                         className="icon-btn danger"
                         onClick={() => removeTodo(todo.id)}
-                        title="Delete"
-                        aria-label="Delete"
+                        title={t("delete")}
+                        aria-label={t("delete")}
                       >
                         <DeleteIcon />
                       </button>
@@ -615,37 +656,37 @@ const App = () => {
               className="btn outline"
               onClick={addCurrentPage}
             >
-              Save page
+              {t("savePage")}
             </button>
             <button
               type="button"
               className="btn primary"
               onClick={openAddForm}
             >
-              New todo
+              {t("newTodo")}
             </button>
           </div>
         </>
       ) : (
         <form className="form" onSubmit={handleSubmit}>
           <h2 className="form-title">
-            {editingId ? "Edit todo" : "New todo"}
+            {editingId ? t("editTodo") : t("newTodo")}
           </h2>
 
           <label>
-            Title
+            {t("titleLabel")}
             <input
               className="quick-input"
               type="text"
               value={form.title}
               onChange={(e) => setForm({ ...form, title: e.target.value })}
-              placeholder="What needs doing?"
+              placeholder={t("titlePlaceholder")}
               maxLength={120}
               autoFocus
             />
           </label>
 
-          <div className="priority-row" role="group" aria-label="Priority">
+          <div className="priority-row" role="group" aria-label={t("priorityAria")}>
             {PRIORITIES.map((item) => (
               <button
                 key={item.value}
@@ -662,44 +703,44 @@ const App = () => {
 
           <div className="details">
             <label>
-              Notes
+              {t("notes")}
               <textarea
                 value={form.description}
                 onChange={(e) =>
                   setForm({ ...form, description: e.target.value })
                 }
-                placeholder="Optional notes"
+                placeholder={t("notesPlaceholder")}
                 rows={2}
                 maxLength={300}
               />
             </label>
 
             <label>
-              Tags
+              {t("tags")}
               <input
                 type="text"
                 value={form.tags}
                 onChange={(e) => setForm({ ...form, tags: e.target.value })}
-                placeholder="work, personal"
+                placeholder={t("tagsPlaceholder")}
               />
             </label>
 
             <label>
-              Repeat
+              {t("repeat")}
               <select
                 value={form.recurrence}
                 onChange={(e) =>
                   setForm({ ...form, recurrence: e.target.value })
                 }
               >
-                <option value="none">Does not repeat</option>
-                <option value="daily">Daily</option>
-                <option value="weekly">Weekly</option>
+                <option value="none">{t("repeatNone")}</option>
+                <option value="daily">{t("repeatDaily")}</option>
+                <option value="weekly">{t("repeatWeekly")}</option>
               </select>
             </label>
 
             <label>
-              Reminder
+              {t("reminder")}
               <input
                 type="datetime-local"
                 value={form.reminderAt}
@@ -708,16 +749,16 @@ const App = () => {
                 }
               />
             </label>
-            <p className="hint">Optional — get a notification at this time.</p>
+            <p className="hint">{t("reminderHint")}</p>
 
             {editingId ? (
               <label>
-                Link
+                {t("link")}
                 <input
                   type="url"
                   value={form.url}
                   onChange={(e) => setForm({ ...form, url: e.target.value })}
-                  placeholder="https://"
+                  placeholder={t("linkPlaceholder")}
                 />
               </label>
             ) : null}
@@ -731,10 +772,10 @@ const App = () => {
               className="btn outline"
               onClick={closeForm}
             >
-              Close
+              {t("close")}
             </button>
             <button type="submit" className="btn primary">
-              Save
+              {t("save")}
             </button>
           </div>
         </form>

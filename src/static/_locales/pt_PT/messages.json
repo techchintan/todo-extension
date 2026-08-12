@@ -1,0 +1,384 @@
+{
+  "extName": {
+    "message": "Todo Reminder",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "Adicione todos rápido, salve páginas, lembretes, sincronização e atalhos",
+    "description": "Extension description in Chrome Web Store"
+  },
+  "actionTitle": {
+    "message": "Todo Reminder",
+    "description": "Toolbar tooltip"
+  },
+  "commandQuickAdd": {
+    "message": "Abrir adição rápida do Todo Reminder",
+    "description": "Keyboard command description"
+  },
+  "viewAll": {
+    "message": "Todos"
+  },
+  "viewToday": {
+    "message": "Hoje"
+  },
+  "viewUpcoming": {
+    "message": "Em breve"
+  },
+  "viewInbox": {
+    "message": "Entrada"
+  },
+  "viewDone": {
+    "message": "Concluídos"
+  },
+  "export": {
+    "message": "Exportar"
+  },
+  "import": {
+    "message": "Importar"
+  },
+  "settings": {
+    "message": "Definições"
+  },
+  "edit": {
+    "message": "Editar"
+  },
+  "delete": {
+    "message": "Eliminar"
+  },
+  "close": {
+    "message": "Fechar"
+  },
+  "save": {
+    "message": "Guardar"
+  },
+  "clearAll": {
+    "message": "Limpar tudo"
+  },
+  "loading": {
+    "message": "Carregando…"
+  },
+  "savePage": {
+    "message": "Guardar página"
+  },
+  "newTodo": {
+    "message": "Novo todo"
+  },
+  "editTodo": {
+    "message": "Editar todo"
+  },
+  "searchPlaceholder": {
+    "message": "Pesquisar todos, etiquetas, ligações…"
+  },
+  "searchAria": {
+    "message": "Pesquisar todos"
+  },
+  "viewsAria": {
+    "message": "Visualizações de todos"
+  },
+  "priorityAria": {
+    "message": "Prioridade"
+  },
+  "emptyTitle": {
+    "message": "Nada aqui ainda"
+  },
+  "emptySearch": {
+    "message": "Nenhum resultado para esta pesquisa."
+  },
+  "emptyHint": {
+    "message": "Toque em Novo todo para criar a sua primeira tarefa."
+  },
+  "titleLabel": {
+    "message": "Título"
+  },
+  "titlePlaceholder": {
+    "message": "O que precisa de ser feito?"
+  },
+  "notes": {
+    "message": "Notas"
+  },
+  "notesPlaceholder": {
+    "message": "Notas opcionais"
+  },
+  "tags": {
+    "message": "Etiquetas"
+  },
+  "tagsPlaceholder": {
+    "message": "trabalho, pessoal"
+  },
+  "repeat": {
+    "message": "Repetir"
+  },
+  "repeatNone": {
+    "message": "Não se repete"
+  },
+  "repeatDaily": {
+    "message": "Diário"
+  },
+  "repeatWeekly": {
+    "message": "Semanal"
+  },
+  "reminder": {
+    "message": "Lembrete"
+  },
+  "reminderHint": {
+    "message": "Opcional — receba uma notificação nesta hora."
+  },
+  "link": {
+    "message": "Link"
+  },
+  "linkPlaceholder": {
+    "message": "https://"
+  },
+  "titleRequired": {
+    "message": "O título é obrigatório."
+  },
+  "reminderInvalid": {
+    "message": "A data e hora do lembrete são inválidas."
+  },
+  "todoUpdated": {
+    "message": "Todo atualizado."
+  },
+  "todoSaved": {
+    "message": "Todo guardado."
+  },
+  "pageCantSave": {
+    "message": "Esta página não pode ser guardada como todo."
+  },
+  "untitledPage": {
+    "message": "Página sem título"
+  },
+  "pageAddedInbox": {
+    "message": "Página adicionada à entrada."
+  },
+  "couldNotReadTab": {
+    "message": "Não foi possível ler o separador atual."
+  },
+  "clearedCompleted": {
+    "message": "Todos concluídos limpos."
+  },
+  "exportedBackup": {
+    "message": "Backup exportado."
+  },
+  "importedTodos": {
+    "message": "$COUNT$ todos importados.",
+    "placeholders": {
+      "COUNT": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "importFailed": {
+    "message": "Não foi possível importar esse ficheiro."
+  },
+  "noStartTime": {
+    "message": "Sem hora de início"
+  },
+  "noDueDate": {
+    "message": "Sem data de vencimento"
+  },
+  "labelStarts": {
+    "message": "Começa"
+  },
+  "labelDue": {
+    "message": "Vence"
+  },
+  "labelStartWas": {
+    "message": "Começou"
+  },
+  "labelOverdue": {
+    "message": "Atrasado"
+  },
+  "relativeAgoMins": {
+    "message": "$LABEL$ · há $COUNT$ min",
+    "placeholders": {
+      "LABEL": {
+        "content": "$1",
+        "example": "Overdue"
+      },
+      "COUNT": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "relativeAgoHours": {
+    "message": "$LABEL$ · há $COUNT$ h",
+    "placeholders": {
+      "LABEL": {
+        "content": "$1",
+        "example": "Overdue"
+      },
+      "COUNT": {
+        "content": "$2",
+        "example": "2"
+      }
+    }
+  },
+  "relativeAgoDays": {
+    "message": "$LABEL$ · há $COUNT$ d",
+    "placeholders": {
+      "LABEL": {
+        "content": "$1",
+        "example": "Overdue"
+      },
+      "COUNT": {
+        "content": "$2",
+        "example": "3"
+      }
+    }
+  },
+  "relativeInMins": {
+    "message": "$LABEL$ em $COUNT$ min",
+    "placeholders": {
+      "LABEL": {
+        "content": "$1",
+        "example": "Due"
+      },
+      "COUNT": {
+        "content": "$2",
+        "example": "10"
+      }
+    }
+  },
+  "relativeInHours": {
+    "message": "$LABEL$ em $COUNT$ h",
+    "placeholders": {
+      "LABEL": {
+        "content": "$1",
+        "example": "Due"
+      },
+      "COUNT": {
+        "content": "$2",
+        "example": "3"
+      }
+    }
+  },
+  "relativeTomorrow": {
+    "message": "$LABEL$ amanhã",
+    "placeholders": {
+      "LABEL": {
+        "content": "$1",
+        "example": "Due"
+      }
+    }
+  },
+  "relativeAt": {
+    "message": "$LABEL$ $DATETIME$",
+    "placeholders": {
+      "LABEL": {
+        "content": "$1",
+        "example": "Due"
+      },
+      "DATETIME": {
+        "content": "$2",
+        "example": "Mar 12, 3:00 PM"
+      }
+    }
+  },
+  "notifStarting": {
+    "message": "Todo começando"
+  },
+  "notifDue": {
+    "message": "Todo vencendo"
+  },
+  "notifComplete": {
+    "message": "Concluir"
+  },
+  "menuAddPage": {
+    "message": "Adicionar página como todo"
+  },
+  "menuAddSelection": {
+    "message": "Adicionar seleção como todo"
+  },
+  "fromPage": {
+    "message": "De: $TITLE$",
+    "placeholders": {
+      "TITLE": {
+        "content": "$1",
+        "example": "Example"
+      }
+    }
+  },
+  "optionsTitle": {
+    "message": "Definições do Todo Reminder"
+  },
+  "optionsSubtitle": {
+    "message": "Lembretes, sincronização, guardar páginas e atalhos."
+  },
+  "chromeSync": {
+    "message": "Sincronização do Chrome"
+  },
+  "syncToggle": {
+    "message": "Sincronizar todos nos meus browsers Chrome"
+  },
+  "syncHint": {
+    "message": "Usa chrome.storage.sync com a sua conta Google. Listas grandes podem atingir o limite de sincronização — use Exportar / Importar no popup como cópia de segurança."
+  },
+  "syncOnStatus": {
+    "message": "Sincronização ligada — os todos sincronizam com a sua conta Google (aplicam-se limites de tamanho)."
+  },
+  "syncOffStatus": {
+    "message": "Sincronização desligada — os todos ficam só neste dispositivo."
+  },
+  "saveSettingsFailed": {
+    "message": "Não foi possível guardar as definições."
+  },
+  "remindersTitle": {
+    "message": "Lembretes"
+  },
+  "remindersIntro": {
+    "message": "Cada todo pode ter uma hora de lembrete opcional. Nessa hora o Chrome mostra uma notificação."
+  },
+  "remindersOneTime": {
+    "message": "Todos únicos são marcados como Concluídos automaticamente quando o lembrete dispara."
+  },
+  "remindersRecurring": {
+    "message": "Todos diários/semanais permanecem abertos. A notificação inclui um botão Concluir (onde o Chrome o suporte) para avançar para a próxima ocorrência."
+  },
+  "remindersClickHint": {
+    "message": "Clique numa notificação para abrir o popup."
+  },
+  "saveFromWebTitle": {
+    "message": "Guardar da web"
+  },
+  "saveFromWebSavePage": {
+    "message": "Use Guardar página no popup para adicionar o separador atual à entrada."
+  },
+  "saveFromWebAddPage": {
+    "message": "Clique com o botão direito numa página → Adicionar página como todo."
+  },
+  "saveFromWebAddSelection": {
+    "message": "Selecione texto → clique com o botão direito → Adicionar seleção como todo."
+  },
+  "organizeTitle": {
+    "message": "Organizar no popup"
+  },
+  "organizeViews": {
+    "message": "Vistas: Todos, Hoje, Em breve, Entrada, Concluídos"
+  },
+  "organizePriorities": {
+    "message": "Prioridades P1–P4, etiquetas, notas e pesquisa"
+  },
+  "organizeRepeat": {
+    "message": "Repetir: nenhum, diário ou semanal"
+  },
+  "shortcutTitle": {
+    "message": "Atalho de teclado"
+  },
+  "shortcutDefault": {
+    "message": "Predefinição: Alt + Shift + T abre o popup do Todo Reminder."
+  },
+  "shortcutHint": {
+    "message": "Altere em chrome://extensions/shortcuts."
+  },
+  "backupTitle": {
+    "message": "Cópia de segurança"
+  },
+  "backupBody": {
+    "message": "Use os ícones Exportar e Importar no cabeçalho do popup para descarregar ou restaurar uma cópia JSON dos seus todos."
+  },
+  "backupHint": {
+    "message": "Recomendado antes de ativar a sincronização ou ao mudar de computador."
+  }
+}

@@ -1,0 +1,384 @@
+{
+  "extName": {
+    "message": "Todo Reminder",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "Todos schnell hinzufügen, Seiten speichern, Erinnerungen, Sync und Tastenkürzel",
+    "description": "Extension description in Chrome Web Store"
+  },
+  "actionTitle": {
+    "message": "Todo Reminder",
+    "description": "Toolbar tooltip"
+  },
+  "commandQuickAdd": {
+    "message": "Todo Reminder Schnelleingabe öffnen",
+    "description": "Keyboard command description"
+  },
+  "viewAll": {
+    "message": "Alle"
+  },
+  "viewToday": {
+    "message": "Heute"
+  },
+  "viewUpcoming": {
+    "message": "Demnächst"
+  },
+  "viewInbox": {
+    "message": "Posteingang"
+  },
+  "viewDone": {
+    "message": "Erledigt"
+  },
+  "export": {
+    "message": "Exportieren"
+  },
+  "import": {
+    "message": "Importieren"
+  },
+  "settings": {
+    "message": "Einstellungen"
+  },
+  "edit": {
+    "message": "Bearbeiten"
+  },
+  "delete": {
+    "message": "Löschen"
+  },
+  "close": {
+    "message": "Schließen"
+  },
+  "save": {
+    "message": "Speichern"
+  },
+  "clearAll": {
+    "message": "Alle löschen"
+  },
+  "loading": {
+    "message": "Laden…"
+  },
+  "savePage": {
+    "message": "Seite speichern"
+  },
+  "newTodo": {
+    "message": "Neues Todo"
+  },
+  "editTodo": {
+    "message": "Todo bearbeiten"
+  },
+  "searchPlaceholder": {
+    "message": "Todos, Tags, Links suchen…"
+  },
+  "searchAria": {
+    "message": "Todos suchen"
+  },
+  "viewsAria": {
+    "message": "Todo-Ansichten"
+  },
+  "priorityAria": {
+    "message": "Priorität"
+  },
+  "emptyTitle": {
+    "message": "Noch nichts hier"
+  },
+  "emptySearch": {
+    "message": "Keine Treffer für diese Suche."
+  },
+  "emptyHint": {
+    "message": "Tippe auf Neues Todo, um deine erste Aufgabe zu erstellen."
+  },
+  "titleLabel": {
+    "message": "Titel"
+  },
+  "titlePlaceholder": {
+    "message": "Was muss erledigt werden?"
+  },
+  "notes": {
+    "message": "Notizen"
+  },
+  "notesPlaceholder": {
+    "message": "Optionale Notizen"
+  },
+  "tags": {
+    "message": "Tags"
+  },
+  "tagsPlaceholder": {
+    "message": "arbeit, privat"
+  },
+  "repeat": {
+    "message": "Wiederholen"
+  },
+  "repeatNone": {
+    "message": "Wiederholt sich nicht"
+  },
+  "repeatDaily": {
+    "message": "Täglich"
+  },
+  "repeatWeekly": {
+    "message": "Wöchentlich"
+  },
+  "reminder": {
+    "message": "Erinnerung"
+  },
+  "reminderHint": {
+    "message": "Optional — Benachrichtigung zu diesem Zeitpunkt."
+  },
+  "link": {
+    "message": "Link"
+  },
+  "linkPlaceholder": {
+    "message": "https://"
+  },
+  "titleRequired": {
+    "message": "Titel ist erforderlich."
+  },
+  "reminderInvalid": {
+    "message": "Erinnerungsdatum und -uhrzeit sind ungültig."
+  },
+  "todoUpdated": {
+    "message": "Todo aktualisiert."
+  },
+  "todoSaved": {
+    "message": "Todo gespeichert."
+  },
+  "pageCantSave": {
+    "message": "Diese Seite kann nicht als Todo gespeichert werden."
+  },
+  "untitledPage": {
+    "message": "Unbenannte Seite"
+  },
+  "pageAddedInbox": {
+    "message": "Seite zum Posteingang hinzugefügt."
+  },
+  "couldNotReadTab": {
+    "message": "Aktueller Tab konnte nicht gelesen werden."
+  },
+  "clearedCompleted": {
+    "message": "Erledigte Todos gelöscht."
+  },
+  "exportedBackup": {
+    "message": "Backup exportiert."
+  },
+  "importedTodos": {
+    "message": "$COUNT$ Todos importiert.",
+    "placeholders": {
+      "COUNT": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "importFailed": {
+    "message": "Datei konnte nicht importiert werden."
+  },
+  "noStartTime": {
+    "message": "Keine Startzeit"
+  },
+  "noDueDate": {
+    "message": "Kein Fälligkeitsdatum"
+  },
+  "labelStarts": {
+    "message": "Startet"
+  },
+  "labelDue": {
+    "message": "Fällig"
+  },
+  "labelStartWas": {
+    "message": "Start war"
+  },
+  "labelOverdue": {
+    "message": "Überfällig"
+  },
+  "relativeAgoMins": {
+    "message": "$LABEL$ · vor $COUNT$ Min.",
+    "placeholders": {
+      "LABEL": {
+        "content": "$1",
+        "example": "Overdue"
+      },
+      "COUNT": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "relativeAgoHours": {
+    "message": "$LABEL$ · vor $COUNT$ Std.",
+    "placeholders": {
+      "LABEL": {
+        "content": "$1",
+        "example": "Overdue"
+      },
+      "COUNT": {
+        "content": "$2",
+        "example": "2"
+      }
+    }
+  },
+  "relativeAgoDays": {
+    "message": "$LABEL$ · vor $COUNT$ T.",
+    "placeholders": {
+      "LABEL": {
+        "content": "$1",
+        "example": "Overdue"
+      },
+      "COUNT": {
+        "content": "$2",
+        "example": "3"
+      }
+    }
+  },
+  "relativeInMins": {
+    "message": "$LABEL$ in $COUNT$ Min.",
+    "placeholders": {
+      "LABEL": {
+        "content": "$1",
+        "example": "Due"
+      },
+      "COUNT": {
+        "content": "$2",
+        "example": "10"
+      }
+    }
+  },
+  "relativeInHours": {
+    "message": "$LABEL$ in $COUNT$ Std.",
+    "placeholders": {
+      "LABEL": {
+        "content": "$1",
+        "example": "Due"
+      },
+      "COUNT": {
+        "content": "$2",
+        "example": "3"
+      }
+    }
+  },
+  "relativeTomorrow": {
+    "message": "$LABEL$ morgen",
+    "placeholders": {
+      "LABEL": {
+        "content": "$1",
+        "example": "Due"
+      }
+    }
+  },
+  "relativeAt": {
+    "message": "$LABEL$ $DATETIME$",
+    "placeholders": {
+      "LABEL": {
+        "content": "$1",
+        "example": "Due"
+      },
+      "DATETIME": {
+        "content": "$2",
+        "example": "Mar 12, 3:00 PM"
+      }
+    }
+  },
+  "notifStarting": {
+    "message": "Todo startet"
+  },
+  "notifDue": {
+    "message": "Todo fällig"
+  },
+  "notifComplete": {
+    "message": "Erledigen"
+  },
+  "menuAddPage": {
+    "message": "Seite als Todo hinzufügen"
+  },
+  "menuAddSelection": {
+    "message": "Auswahl als Todo hinzufügen"
+  },
+  "fromPage": {
+    "message": "Von: $TITLE$",
+    "placeholders": {
+      "TITLE": {
+        "content": "$1",
+        "example": "Example"
+      }
+    }
+  },
+  "optionsTitle": {
+    "message": "Todo Reminder Einstellungen"
+  },
+  "optionsSubtitle": {
+    "message": "Erinnerungen, Sync, Seiten speichern und Tastenkürzel."
+  },
+  "chromeSync": {
+    "message": "Chrome-Sync"
+  },
+  "syncToggle": {
+    "message": "Todos über meine Chrome-Browser synchronisieren"
+  },
+  "syncHint": {
+    "message": "Nutzt chrome.storage.sync mit deinem Google-Konto. Große Listen können das Sync-Limit erreichen — nutze Export/Import im Popup als Backup."
+  },
+  "syncOnStatus": {
+    "message": "Chrome-Sync an — Todos synchronisieren mit deinem Google-Konto (Größenlimits gelten)."
+  },
+  "syncOffStatus": {
+    "message": "Chrome-Sync aus — Todos bleiben nur auf diesem Gerät."
+  },
+  "saveSettingsFailed": {
+    "message": "Einstellungen konnten nicht gespeichert werden."
+  },
+  "remindersTitle": {
+    "message": "Erinnerungen"
+  },
+  "remindersIntro": {
+    "message": "Jedes Todo kann eine optionale Erinnerungszeit haben. Zu diesem Zeitpunkt zeigt Chrome eine Benachrichtigung."
+  },
+  "remindersOneTime": {
+    "message": "Einmalige Todos werden automatisch als Erledigt markiert, wenn die Erinnerung auslöst."
+  },
+  "remindersRecurring": {
+    "message": "Tägliche/wöchentliche Todos bleiben offen. Die Benachrichtigung enthält einen Erledigen-Button (wo Chrome das unterstützt), um zum nächsten Termin zu springen."
+  },
+  "remindersClickHint": {
+    "message": "Klicke auf eine Benachrichtigung, um das Popup zu öffnen."
+  },
+  "saveFromWebTitle": {
+    "message": "Aus dem Web speichern"
+  },
+  "saveFromWebSavePage": {
+    "message": "Nutze Seite speichern im Popup, um den aktuellen Tab zum Posteingang hinzuzufügen."
+  },
+  "saveFromWebAddPage": {
+    "message": "Rechtsklick auf eine Seite → Seite als Todo hinzufügen."
+  },
+  "saveFromWebAddSelection": {
+    "message": "Text markieren → Rechtsklick → Auswahl als Todo hinzufügen."
+  },
+  "organizeTitle": {
+    "message": "Im Popup organisieren"
+  },
+  "organizeViews": {
+    "message": "Ansichten: Alle, Heute, Demnächst, Posteingang, Erledigt"
+  },
+  "organizePriorities": {
+    "message": "Prioritäten P1–P4, Tags, Notizen und Suche"
+  },
+  "organizeRepeat": {
+    "message": "Wiederholen: keine, täglich oder wöchentlich"
+  },
+  "shortcutTitle": {
+    "message": "Tastenkürzel"
+  },
+  "shortcutDefault": {
+    "message": "Standard: Alt + Umschalt + T öffnet das Todo Reminder Popup."
+  },
+  "shortcutHint": {
+    "message": "Ändern unter chrome://extensions/shortcuts."
+  },
+  "backupTitle": {
+    "message": "Backup"
+  },
+  "backupBody": {
+    "message": "Nutze die Export- und Import-Icons in der Popup-Kopfzeile, um ein JSON-Backup deiner Todos herunterzuladen oder wiederherzustellen."
+  },
+  "backupHint": {
+    "message": "Empfohlen vor dem Einschalten von Sync oder beim Wechsel auf einen anderen Computer."
+  }
+}

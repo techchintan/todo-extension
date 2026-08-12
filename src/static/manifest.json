@@ -1,6 +1,7 @@
 {
-  "name": "Todo Reminder",
-  "description": "Quick-add todos, save pages, reminders, sync, and keyboard shortcuts",
+  "default_locale": "en",
+  "name": "__MSG_extName__",
+  "description": "__MSG_extDescription__",
   "version": "1.2.0",
   "manifest_version": 3,
   "icons": {
@@ -10,7 +11,7 @@
   },
   "action": {
     "default_popup": "popup.html",
-    "default_title": "Todo Reminder",
+    "default_title": "__MSG_actionTitle__",
     "default_icon": "icon.png"
   },
   "options_ui": {
@@ -36,7 +37,7 @@
         "default": "Alt+Shift+T",
         "mac": "Alt+Shift+T"
       },
-      "description": "Open Todo Reminder quick add"
+      "description": "__MSG_commandQuickAdd__"
     }
   }
 }

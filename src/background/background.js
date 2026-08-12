@@ -1,3 +1,4 @@
+import { t } from "../shared/i18n";
 import {
   addTodo,
   dueAlarmNameForTodo,
@@ -84,7 +85,7 @@ async function handleAlarm(alarm) {
     const startNotification = {
       type: "basic",
       iconUrl: "icon.png",
-      title: "Todo starting",
+      title: t("notifStarting"),
       message: todo.title,
       contextMessage: todo.description || todo.url || undefined,
       priority: 2,
@@ -92,7 +93,7 @@ async function handleAlarm(alarm) {
       silent: false,
     };
     if (isRecurring) {
-      startNotification.buttons = [{ title: "Complete" }];
+      startNotification.buttons = [{ title: t("notifComplete") }];
     }
     await chrome.notifications.create(
       startNotificationIdForTodo(todo.id),
@@ -122,7 +123,7 @@ async function handleAlarm(alarm) {
   const dueNotification = {
     type: "basic",
     iconUrl: "icon.png",
-    title: "Todo due",
+    title: t("notifDue"),
     message: todo.title,
     contextMessage: todo.description || todo.url || undefined,
     priority: 2,
@@ -130,7 +131,7 @@ async function handleAlarm(alarm) {
     silent: false,
   };
   if (isRecurring) {
-    dueNotification.buttons = [{ title: "Complete" }];
+    dueNotification.buttons = [{ title: t("notifComplete") }];
   }
   await chrome.notifications.create(
     dueNotificationIdForTodo(todo.id),
@@ -158,12 +159,12 @@ function setupContextMenus() {
   chrome.contextMenus.removeAll(() => {
     chrome.contextMenus.create({
       id: MENU_ADD_PAGE,
-      title: "Add page as todo",
+      title: t("menuAddPage"),
       contexts: ["page", "action"],
     });
     chrome.contextMenus.create({
       id: MENU_ADD_SELECTION,
-      title: "Add selection as todo",
+      title: t("menuAddSelection"),
       contexts: ["selection"],
     });
   });
@@ -171,13 +172,13 @@ function setupContextMenus() {
 
 async function createFromPage(tab, selectionText) {
   const pageUrl = tab?.url || "";
-  const pageTitle = tab?.title || "Untitled page";
+  const pageTitle = tab?.title || t("untitledPage");
   const selected = (selectionText || "").trim();
 
   if (selected) {
     return addTodo({
       title: selected.slice(0, 120),
-      description: `From: ${pageTitle}`,
+      description: t("fromPage", pageTitle),
       url: pageUrl,
     });
   }
@@ -225,6 +226,7 @@ chrome.runtime.onInstalled.addListener(() => {
 });
 
 chrome.runtime.onStartup.addListener(() => {
+  setupContextMenus();
   refreshReminders();
 });
 
