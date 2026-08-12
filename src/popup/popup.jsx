@@ -868,7 +868,7 @@ const App = () => {
     <div className="app">
       <header className="header">
         <div className="brand-row">
-          <img className="brand-mark" src="icon-48.png" alt="" width="34" height="34" aria-hidden="true" />
+          <img className="brand-mark" src="icon48.png" alt="" width="34" height="34" aria-hidden="true" />
           <div>
             <p className="eyebrow">{todayLabel}</p>
             <h1>{t("actionTitle")}</h1>
