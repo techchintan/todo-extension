@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { getSettings, saveSettings } from "../shared/todos";
 import { t } from "../shared/i18n";
+import "../../node_modules/@fontsource/figtree/400.css";
+import "../../node_modules/@fontsource/figtree/500.css";
+import "../../node_modules/@fontsource/figtree/600.css";
+import "../../node_modules/@fontsource/figtree/700.css";
 import "./options.css";
 
 const App = () => {

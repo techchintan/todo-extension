@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import {
   createTodo,
@@ -13,6 +13,10 @@ import {
   sortTodos,
 } from "../shared/todos";
 import { t, uiLocale } from "../shared/i18n";
+import "../../node_modules/@fontsource/figtree/400.css";
+import "../../node_modules/@fontsource/figtree/500.css";
+import "../../node_modules/@fontsource/figtree/600.css";
+import "../../node_modules/@fontsource/figtree/700.css";
 import "./popup.css";
 
 const VIEW_IDS = ["all", "today", "upcoming", "inbox", "completed"];
@@ -115,6 +119,410 @@ function toDatetimeLocalValue(timestamp) {
   return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(
     date.getDate()
   )}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+}
+
+function tf(key, fallback) {
+  const value = t(key);
+  return !value || value === key ? fallback : value;
+}
+
+function pad2(n) {
+  return String(n).padStart(2, "0");
+}
+
+function parseDatetimeLocal(value) {
+  if (!value) return null;
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? null : date;
+}
+
+function formatDatetimeDisplay(value) {
+  const date = parseDatetimeLocal(value);
+  if (!date) return "";
+  return date.toLocaleString(uiLocale(), {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+  });
+}
+
+function buildDatetimeLocal(date, hour12, minute, period) {
+  let hours = hour12 % 12;
+  if (period === "PM") hours += 12;
+  return `${date.getFullYear()}-${pad2(date.getMonth() + 1)}-${pad2(
+    date.getDate()
+  )}T${pad2(hours)}:${pad2(minute)}`;
+}
+
+function useDropPlacement(open, rootRef, estimatedHeight) {
+  const [dropUp, setDropUp] = useState(false);
+
+  useLayoutEffect(() => {
+    if (!open || !rootRef.current) {
+      setDropUp(false);
+      return;
+    }
+    const rect = rootRef.current.getBoundingClientRect();
+    const gap = 8;
+    const spaceBelow = window.innerHeight - rect.bottom - gap;
+    const spaceAbove = rect.top - gap;
+    setDropUp(spaceBelow < estimatedHeight && spaceAbove > spaceBelow);
+  }, [open, estimatedHeight]);
+
+  return dropUp;
+}
+
+function FancySelect({ value, options, onChange, ariaLabel, compact = false }) {
+  const [open, setOpen] = useState(false);
+  const rootRef = useRef(null);
+  const selected = options.find((opt) => opt.value === value) || options[0];
+  const menuHeight = compact
+    ? Math.min(140, 8 + options.length * 30)
+    : Math.min(220, 12 + options.length * 40);
+  const dropUp = useDropPlacement(open, rootRef, menuHeight);
+
+  useEffect(() => {
+    if (!open) return undefined;
+    const onPointerDown = (event) => {
+      if (!rootRef.current?.contains(event.target)) setOpen(false);
+    };
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") {
+        event.stopPropagation();
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [open]);
+
+  return (
+    <div
+      className={`fancy-select${compact ? " compact" : ""}${
+        open ? " open" : ""
+      }${dropUp ? " drop-up" : ""}`}
+      ref={rootRef}
+    >
+      <button
+        type="button"
+        className="fancy-trigger"
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-label={ariaLabel}
+        onClick={() => setOpen((prev) => !prev)}
+      >
+        <span>{selected?.label}</span>
+        <span className="fancy-chevron" aria-hidden="true" />
+      </button>
+      {open ? (
+        <div className="fancy-menu" role="listbox">
+          <div className="fancy-menu-scroll">
+            {options.map((opt) => (
+              <button
+                key={String(opt.value)}
+                type="button"
+                role="option"
+                aria-selected={opt.value === value}
+                className={`fancy-option${
+                  opt.value === value ? " active" : ""
+                }`}
+                onClick={() => {
+                  onChange(opt.value);
+                  setOpen(false);
+                }}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+function FancyDateTime({ value, onChange, ariaLabel }) {
+  const [open, setOpen] = useState(false);
+  const rootRef = useRef(null);
+  const dropUp = useDropPlacement(open, rootRef, 320);
+  const initial = parseDatetimeLocal(value) || new Date();
+  const [cursor, setCursor] = useState(
+    () => new Date(initial.getFullYear(), initial.getMonth(), 1)
+  );
+  const [selectedDay, setSelectedDay] = useState(() =>
+    value ? initial : null
+  );
+  const [hour12, setHour12] = useState(() => {
+    const h = initial.getHours() % 12;
+    return h === 0 ? 12 : h;
+  });
+  const [minute, setMinute] = useState(() => initial.getMinutes());
+  const [period, setPeriod] = useState(() =>
+    initial.getHours() >= 12 ? "PM" : "AM"
+  );
+
+  useEffect(() => {
+    if (!open) return undefined;
+    const parsed = parseDatetimeLocal(value);
+    const base = parsed || new Date();
+    setCursor(new Date(base.getFullYear(), base.getMonth(), 1));
+    setSelectedDay(parsed ? base : null);
+    const h = base.getHours() % 12;
+    setHour12(h === 0 ? 12 : h);
+    setMinute(base.getMinutes());
+    setPeriod(base.getHours() >= 12 ? "PM" : "AM");
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) return undefined;
+    const onPointerDown = (event) => {
+      if (!rootRef.current?.contains(event.target)) setOpen(false);
+    };
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("mousedown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [open]);
+
+  const monthLabel = cursor.toLocaleString(uiLocale(), {
+    month: "long",
+    year: "numeric",
+  });
+  const daysInMonth = new Date(
+    cursor.getFullYear(),
+    cursor.getMonth() + 1,
+    0
+  ).getDate();
+  const startWeekday = new Date(
+    cursor.getFullYear(),
+    cursor.getMonth(),
+    1
+  ).getDay();
+  const today = new Date();
+  const commit = (dayDate, nextHour = hour12, nextMinute = minute, nextPeriod = period) => {
+    const next = buildDatetimeLocal(dayDate, nextHour, nextMinute, nextPeriod);
+    onChange(next);
+  };
+
+  const weekdayLabels = Array.from({ length: 7 }, (_, i) => {
+    const date = new Date(2024, 0, 7 + i);
+    return date.toLocaleDateString(uiLocale(), { weekday: "short" });
+  });
+
+  return (
+    <div
+      className={`fancy-datetime${open ? " open" : ""}${
+        dropUp ? " drop-up" : ""
+      }`}
+      ref={rootRef}
+    >
+      <button
+        type="button"
+        className="fancy-trigger"
+        aria-haspopup="dialog"
+        aria-expanded={open}
+        aria-label={ariaLabel}
+        onClick={() => setOpen((prev) => !prev)}
+      >
+        <span className={value ? "" : "placeholder"}>
+          {value
+            ? formatDatetimeDisplay(value)
+            : tf("reminderPlaceholder", "Pick date & time")}
+        </span>
+        <span className="fancy-cal" aria-hidden="true">
+          <Icon size={16}>
+            <rect x="3" y="4" width="18" height="18" rx="2" />
+            <path d="M16 2v4" />
+            <path d="M8 2v4" />
+            <path d="M3 10h18" />
+          </Icon>
+        </span>
+      </button>
+      {open ? (
+        <div className="fancy-picker" role="dialog">
+          <div className="fancy-picker-head">
+            <button
+              type="button"
+              className="fancy-nav"
+              aria-label="Previous month"
+              onClick={() =>
+                setCursor(
+                  new Date(cursor.getFullYear(), cursor.getMonth() - 1, 1)
+                )
+              }
+            >
+              ‹
+            </button>
+            <strong>{monthLabel}</strong>
+            <button
+              type="button"
+              className="fancy-nav"
+              aria-label="Next month"
+              onClick={() =>
+                setCursor(
+                  new Date(cursor.getFullYear(), cursor.getMonth() + 1, 1)
+                )
+              }
+            >
+              ›
+            </button>
+          </div>
+
+          <div className="fancy-weekdays">
+            {weekdayLabels.map((label, index) => (
+              <span key={`${label}-${index}`}>{label}</span>
+            ))}
+          </div>
+
+          <div className="fancy-days">
+            {Array.from({ length: startWeekday }).map((_, i) => (
+              <span key={`pad-${i}`} className="fancy-day empty" />
+            ))}
+            {Array.from({ length: daysInMonth }, (_, i) => {
+              const day = i + 1;
+              const date = new Date(
+                cursor.getFullYear(),
+                cursor.getMonth(),
+                day
+              );
+              const isSelected =
+                selectedDay &&
+                selectedDay.getFullYear() === date.getFullYear() &&
+                selectedDay.getMonth() === date.getMonth() &&
+                selectedDay.getDate() === date.getDate();
+              const isToday =
+                today.getFullYear() === date.getFullYear() &&
+                today.getMonth() === date.getMonth() &&
+                today.getDate() === date.getDate();
+              return (
+                <button
+                  key={day}
+                  type="button"
+                  className={`fancy-day${isSelected ? " selected" : ""}${
+                    isToday ? " today" : ""
+                  }`}
+                  onClick={() => {
+                    setSelectedDay(date);
+                    commit(date);
+                  }}
+                >
+                  {day}
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="fancy-time">
+            <label>
+              {tf("hour", "Hour")}
+              <FancySelect
+                compact
+                ariaLabel={tf("hour", "Hour")}
+                value={hour12}
+                options={Array.from({ length: 12 }, (_, i) => ({
+                  value: i + 1,
+                  label: pad2(i + 1),
+                }))}
+                onChange={(next) => {
+                  setHour12(next);
+                  if (selectedDay) commit(selectedDay, next, minute, period);
+                }}
+              />
+            </label>
+            <label>
+              {tf("minute", "Min")}
+              <FancySelect
+                compact
+                ariaLabel={tf("minute", "Min")}
+                value={minute}
+                options={Array.from({ length: 60 }, (_, i) => ({
+                  value: i,
+                  label: pad2(i),
+                }))}
+                onChange={(next) => {
+                  setMinute(next);
+                  if (selectedDay) commit(selectedDay, hour12, next, period);
+                }}
+              />
+            </label>
+            <label>
+              {tf("period", "AM/PM")}
+              <FancySelect
+                compact
+                ariaLabel={tf("period", "AM/PM")}
+                value={period}
+                options={[
+                  { value: "AM", label: "AM" },
+                  { value: "PM", label: "PM" },
+                ]}
+                onChange={(next) => {
+                  setPeriod(next);
+                  if (selectedDay) commit(selectedDay, hour12, minute, next);
+                }}
+              />
+            </label>
+          </div>
+
+          <div className="fancy-picker-actions">
+            <button
+              type="button"
+              className="fancy-link"
+              onClick={() => {
+                onChange("");
+                setSelectedDay(null);
+                setOpen(false);
+              }}
+            >
+              {tf("pickerClear", "Clear")}
+            </button>
+            <button
+              type="button"
+              className="fancy-link"
+              onClick={() => {
+                const now = new Date();
+                setCursor(new Date(now.getFullYear(), now.getMonth(), 1));
+                setSelectedDay(now);
+                const h = now.getHours() % 12;
+                const nextHour = h === 0 ? 12 : h;
+                const nextMinute = now.getMinutes();
+                const nextPeriod = now.getHours() >= 12 ? "PM" : "AM";
+                setHour12(nextHour);
+                setMinute(nextMinute);
+                setPeriod(nextPeriod);
+                commit(now, nextHour, nextMinute, nextPeriod);
+              }}
+            >
+              {tf("viewToday", "Today")}
+            </button>
+            <button
+              type="button"
+              className="fancy-done"
+              onClick={() => {
+                if (!selectedDay) {
+                  const now = new Date();
+                  commit(now);
+                }
+                setOpen(false);
+              }}
+            >
+              {tf("pickerDone", "Done")}
+            </button>
+          </div>
+        </div>
+      ) : null}
+    </div>
+  );
 }
 
 function formatRelativeDue(timestamp, { kind = "due" } = {}) {
@@ -460,7 +868,7 @@ const App = () => {
     <div className="app">
       <header className="header">
         <div className="brand-row">
-          <img className="brand-mark" src="icon-128.png" alt="" width="34" height="34" aria-hidden="true" />
+          <img className="brand-mark" src="icon-48.png" alt="" width="34" height="34" aria-hidden="true" />
           <div>
             <p className="eyebrow">{todayLabel}</p>
             <h1>{t("extName")}</h1>
@@ -727,26 +1135,24 @@ const App = () => {
 
             <label>
               {t("repeat")}
-              <select
+              <FancySelect
+                ariaLabel={t("repeat")}
                 value={form.recurrence}
-                onChange={(e) =>
-                  setForm({ ...form, recurrence: e.target.value })
-                }
-              >
-                <option value="none">{t("repeatNone")}</option>
-                <option value="daily">{t("repeatDaily")}</option>
-                <option value="weekly">{t("repeatWeekly")}</option>
-              </select>
+                onChange={(recurrence) => setForm({ ...form, recurrence })}
+                options={[
+                  { value: "none", label: t("repeatNone") },
+                  { value: "daily", label: t("repeatDaily") },
+                  { value: "weekly", label: t("repeatWeekly") },
+                ]}
+              />
             </label>
 
             <label>
               {t("reminder")}
-              <input
-                type="datetime-local"
+              <FancyDateTime
+                ariaLabel={t("reminder")}
                 value={form.reminderAt}
-                onChange={(e) =>
-                  setForm({ ...form, reminderAt: e.target.value })
-                }
+                onChange={(reminderAt) => setForm({ ...form, reminderAt })}
               />
             </label>
             <p className="hint">{t("reminderHint")}</p>
