@@ -71,6 +71,7 @@ Tip for Windows: chrome://settings/system → enable “Continue running backgro
 | Screenshots | At least 1 image, **1280×800** or **640×400** (PNG/JPEG). Capture the popup list, add-todo form, and options/sync page from a loaded `dist` build. |
 | Small promo (optional) | 440×280 — `docs/store-assets/promo-small-440x280.png` |
 | Marquee (optional) | 1400×560 — `docs/store-assets/promo-marquee-1400x560.png` |
+| Extension tour video (optional) | `docs/store-assets/quicktask-extension-tour.mp4` (~2 min 34 sec, 1280×720, with narration) |
 
 Do **not** claim an on-page floating button/FAB — that feature is not in the shipping build.
 
